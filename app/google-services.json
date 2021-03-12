@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "51045940795",
+    "project_id": "cora-app-49a20",
+    "storage_bucket": "cora-app-49a20.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:51045940795:android:5a52528471f079e177661e",
+        "android_client_info": {
+          "package_name": "com.example.coraapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "51045940795-sm6ai2r372ju3ll42ldsqpkqth3hga9d.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCJlw7cQcE5lLopEDtB07rcnJQz6tNV1wQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "51045940795-sm6ai2r372ju3ll42ldsqpkqth3hga9d.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
