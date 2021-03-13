@@ -26,8 +26,12 @@
         android:ems="10"
         android:inputType="textPersonName"
         android:text="username"
-        tools:layout_editor_absoluteX="100dp"
-        tools:layout_editor_absoluteY="385dp" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.532" />
 
     <EditText
         android:id="@+id/fullname_Setup"
@@ -36,14 +40,21 @@
         android:ems="10"
         android:inputType="textPersonName"
         android:text="Full Name"
-        tools:layout_editor_absoluteX="100dp"
-        tools:layout_editor_absoluteY="464dp" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.634" />
 
     <Button
         android:id="@+id/saveBtn_Setup"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="SAVE"
-        tools:layout_editor_absoluteX="161dp"
-        tools:layout_editor_absoluteY="542dp" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.783" />
 </androidx.constraintlayout.widget.ConstraintLayout>

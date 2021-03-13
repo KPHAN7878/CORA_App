@@ -15,6 +15,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 public class LoginActivity extends AppCompatActivity
 {
@@ -55,6 +56,25 @@ public class LoginActivity extends AppCompatActivity
             }
         });
     }
+
+
+
+
+
+    //if user is already logged in then don't have to enter credentials
+    @Override
+    protected void onStart()
+    {
+        super.onStart();
+
+        FirebaseUser currentUser = mAuth.getCurrentUser();
+
+        if(currentUser != null)
+        {
+            sendUserToMainActivity();
+        }
+    }
+
 
     //method for when user clicks login button
     private void AllowUserLogin()
