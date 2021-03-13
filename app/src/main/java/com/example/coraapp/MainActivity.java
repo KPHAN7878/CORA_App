@@ -79,6 +79,8 @@ public class MainActivity extends AppCompatActivity
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot)
             {
+                //MIGHT NEED TO EDIT THIS LATER - TUTORIAL 12 BUG
+
                 //if user is authenticated (email and password) but is not in database yet (name, username, profile, etc)
                 //if this is the case send user to setup page
                 if(!snapshot.hasChild(currentUserID))

@@ -140,7 +140,7 @@ public class RegisterActivity extends AppCompatActivity
     //send user to set up page after registering new account
     private void sendUserToSetupActivity()
     {
-        Intent setupIntent   =new Intent(RegisterActivity.this, SetupActivity.class);
+        Intent setupIntent = new Intent(RegisterActivity.this, SetupActivity.class);
         //flag for finish once authenticated
         setupIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(setupIntent);
