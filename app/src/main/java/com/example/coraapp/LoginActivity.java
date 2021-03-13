@@ -18,6 +18,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
 //test from kevinphan724@gmail.com
+//test from kevinphan724@gmail.com - test 2
 
 public class LoginActivity extends AppCompatActivity
 {
