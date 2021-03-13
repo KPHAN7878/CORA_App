@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
@@ -90,7 +91,9 @@ public class RegisterActivity extends AppCompatActivity
                 {
                     if(task.isSuccessful())
                     {
+                        sendUserToSetupActivity();
                         Toast.makeText(RegisterActivity.this, "Account Created", Toast.LENGTH_SHORT).show();
+                        loadingBar.dismiss();
                     }
                     else
                     {
@@ -101,5 +104,16 @@ public class RegisterActivity extends AppCompatActivity
                 }
             });
         }
+    }
+
+    //send user to set up page after registering new account
+    private void sendUserToSetupActivity()
+    {
+        Intent setupIntent   =new Intent(RegisterActivity.this, SetupActivity.class);
+        //flag for finish once authenticated
+        setupIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(setupIntent);
+        //so that if user presses back then can't go back to register
+        finish();
     }
 }
