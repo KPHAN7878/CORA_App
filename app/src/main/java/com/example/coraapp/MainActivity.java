@@ -44,9 +44,10 @@ public class MainActivity extends AppCompatActivity
                 SendUserToLoginActivity();
             }
         });
-
-
     }
+
+
+
 
     //when app is opened make sure that the user is logged in
     @Override
@@ -67,6 +68,7 @@ public class MainActivity extends AppCompatActivity
             CheckUserExistence();
         }
     }
+
 
 
     //method that checks if user is in database
@@ -97,6 +99,9 @@ public class MainActivity extends AppCompatActivity
         });
     }
 
+
+
+
     //method that sends user to setup activity
     private void SendUserToSetupActivity()
     {
@@ -105,6 +110,7 @@ public class MainActivity extends AppCompatActivity
         startActivity(setupIntent);
         finish();
     }
+
 
 
     //login validation method
