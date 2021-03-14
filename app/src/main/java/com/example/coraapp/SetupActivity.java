@@ -22,6 +22,9 @@ import java.util.HashMap;
 
 public class SetupActivity extends AppCompatActivity
 {
+    //test from original pc
+    //test 2
+
     private EditText username_Setup, fullname_Setup;
     private Button saveBtn_Setup;
     private ImageView profile_Setup;
