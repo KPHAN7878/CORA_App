@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -19,6 +20,7 @@ import com.google.firebase.database.ValueEventListener;
 public class MainActivity extends AppCompatActivity
 {
     private Button logoutMain;
+    private FloatingActionButton report_btn_main;
 
     private FirebaseAuth mAuth;
     private DatabaseReference UsersRef;
@@ -30,6 +32,7 @@ public class MainActivity extends AppCompatActivity
         setContentView(R.layout.activity_main);
 
         logoutMain = findViewById(R.id.logoutMain);
+        report_btn_main = findViewById(R.id.report_btn_main);
 
         mAuth = FirebaseAuth.getInstance();
         UsersRef = FirebaseDatabase.getInstance().getReference().child("Users");
@@ -44,9 +47,21 @@ public class MainActivity extends AppCompatActivity
                 SendUserToLoginActivity();
             }
         });
+
+        report_btn_main.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v)
+            {
+                SendUserToPostActivity();
+            }
+        });
     }
 
-
+    private void SendUserToPostActivity()
+    {
+        Intent newReportIntent = new Intent(MainActivity.this, PostActivity.class);
+        startActivity(newReportIntent);
+    }
 
 
     //when app is opened make sure that the user is logged in
