@@ -2,12 +2,13 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/title_post"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".PostActivity">
 
     <ImageButton
-        android:id="@+id/imageButton"
+        android:id="@+id/picture_post"
         android:layout_width="351dp"
         android:layout_height="250dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -18,7 +19,7 @@
         app:srcCompat="@android:drawable/ic_menu_gallery" />
 
     <EditText
-        android:id="@+id/editTextTextPersonName"
+        android:id="@+id/Title_post"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:ems="10"
@@ -30,7 +31,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/submit_btn_post"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="SUBMIT"
