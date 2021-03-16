@@ -18,15 +18,27 @@ import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
 import java.util.Calendar;
+import java.util.HashMap;
 
 public class PostActivity extends AppCompatActivity {
 
+
+    //tutorial21 branch test comment
+    //push to master after merging master with tutorial21
+
     //SavePostInfo branch test comment
+
 
     private Button submit_btn_post;
     private EditText Title_post;
@@ -40,9 +52,14 @@ public class PostActivity extends AppCompatActivity {
 
     //firebase variables
     private StorageReference ImageRef;
+    private DatabaseReference UserRef, OccurrenceRef;
+    private FirebaseAuth mAuth;
+
 
     //time variables to create unique image name
-    private String saveCurrentDate, saveCurrentTime, postRandomID;
+    private String saveCurrentDate, saveCurrentTime, postRandomID, storageURL;
+    private String userID;
+
 
 
 
@@ -51,7 +68,14 @@ public class PostActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_post);
 
+        mAuth = FirebaseAuth.getInstance();
+        userID = mAuth.getCurrentUser().getUid();
+
+        //references to user and occurrence in database
+        //reference to image in storage
         ImageRef = FirebaseStorage.getInstance().getReference();
+        UserRef = FirebaseDatabase.getInstance().getReference().child("Users");
+        OccurrenceRef = FirebaseDatabase.getInstance().getReference().child("Occurrence");
 
         submit_btn_post = findViewById(R.id.submit_btn_post);
         Title_post = findViewById(R.id.Title_post);
@@ -118,10 +142,76 @@ public class PostActivity extends AppCompatActivity {
             {
                 if(task.isSuccessful())
                 {
+                    //retrieve download url of uploaded images
+                    storageURL = task.getResult().getStorage().getDownloadUrl().toString();
                     Toast.makeText(PostActivity.this, "Image Uploaded", Toast.LENGTH_SHORT).show();
+
+                    ReportInfoToDatabase();
                 }
             }
         });
+    }
+
+
+
+    //method to send occurrence information to database
+    private void ReportInfoToDatabase()
+    {
+        //this part is retrieving user's name from database to link with their post
+        UserRef.child(userID).addValueEventListener(new ValueEventListener()
+        {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot)
+            {
+                if(snapshot.exists())
+                {
+                    String fullname = snapshot.child("FullName").getValue().toString();
+
+                    //create new node in database for occurrence and store information
+                    // -store userID
+                    // - store date
+                    HashMap occurrenceMap = new HashMap();
+                    occurrenceMap.put("UID", userID);
+                    occurrenceMap.put("date", saveCurrentDate);
+                    occurrenceMap.put("title", title);
+                    occurrenceMap.put("image", storageURL);
+                    occurrenceMap.put("FullName", fullname);
+
+                    //add new occurrence reports to firebase under "Occurrence" node and assign unique ID for each post
+                    OccurrenceRef.child(userID + postRandomID).updateChildren(occurrenceMap).addOnCompleteListener(new OnCompleteListener()
+                    {
+                        @Override
+                        public void onComplete(@NonNull Task task)
+                        {
+                            if(task.isSuccessful())
+                            {
+                                SendUserToMainActivity();
+                                Toast.makeText(PostActivity.this, "Thank you", Toast.LENGTH_SHORT).show();
+                            }
+                            else
+                            {
+                                Toast.makeText(PostActivity.this, "Error", Toast.LENGTH_SHORT).show();
+                            }
+                        }
+                    });
+
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error)
+            {
+
+            }
+        });
+    }
+
+
+    //method to redirect user back to main activity after reporting occurrence
+    private void SendUserToMainActivity()
+    {
+        Intent mainIntent = new Intent(PostActivity.this, MainActivity.class);
+        startActivity(mainIntent);
     }
 
 
@@ -133,6 +223,7 @@ public class PostActivity extends AppCompatActivity {
         galleryIntent.setType("image/*");
         startActivityForResult(galleryIntent, GALLERY_PICK);
     }
+
 
 
 
@@ -148,4 +239,6 @@ public class PostActivity extends AppCompatActivity {
             picture_post.setImageURI(imageUri);
         }
     }
+
+
 }
