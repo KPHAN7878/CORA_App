@@ -34,6 +34,7 @@ import java.util.HashMap;
 public class PostActivity extends AppCompatActivity {
 
     //tutorial21 branch test comment
+    //push to master after merging master with tutorial21
 
     private Button submit_btn_post;
     private EditText Title_post;
