@@ -26,6 +26,8 @@ import java.util.Calendar;
 
 public class PostActivity extends AppCompatActivity {
 
+    //SavePostInfo branch test comment
+
     private Button submit_btn_post;
     private EditText Title_post;
     private ImageButton picture_post;
