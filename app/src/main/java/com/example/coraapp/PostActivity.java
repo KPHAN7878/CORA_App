@@ -148,10 +148,85 @@ public class PostActivity extends AppCompatActivity implements AdapterView.OnIte
         {
             Toast.makeText(this, "Please Enter a Title", Toast.LENGTH_SHORT).show();
         }
+        else if(!Uri.EMPTY.equals(imageUri))
+        {
+            NoImageToFirebase();
+        }
         else
         {
             StoreImageToFirebaseStorage();
         }
+    }
+
+
+    //if the user does not submit an image
+    private void NoImageToFirebase()
+    {
+        Calendar obtainDate = Calendar.getInstance();
+        SimpleDateFormat currentDate = new SimpleDateFormat("dd-MMMM-yyyy");
+        saveCurrentDate = currentDate.format(obtainDate.getTime());
+
+        Calendar obtainTime = Calendar.getInstance();
+        SimpleDateFormat currentTime = new SimpleDateFormat("HH:mm:ss");
+        saveCurrentTime = currentTime.format(obtainTime.getTime());
+
+        postRandomID = saveCurrentDate + saveCurrentTime;
+
+
+        //this part is retrieving user's name from database to link with their post
+        UserRef.child(userID).addValueEventListener(new ValueEventListener()
+        {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot)
+            {
+                if(snapshot.exists())
+                {
+                    String fullname = snapshot.child("FullName").getValue().toString();
+                    storageURL = "null";
+
+
+                    //create new node in database for occurrence and store information
+                    // -store userID
+                    // - store date
+                    // - sotre title
+                    // - store storage url for image
+                    // - store full name
+                    HashMap occurrenceMap = new HashMap();
+                    occurrenceMap.put("UID", userID);
+                    occurrenceMap.put("date", saveCurrentDate);
+                    occurrenceMap.put("title", title);
+                    occurrenceMap.put("description", description);
+                    occurrenceMap.put("image", storageURL);
+                    occurrenceMap.put("category", crime);
+                    occurrenceMap.put("FullName", fullname);
+
+                    //add new occurrence reports to firebase under "Occurrence" node and assign unique ID for each post
+                    OccurrenceRef.child(userID + postRandomID).updateChildren(occurrenceMap).addOnCompleteListener(new OnCompleteListener()
+                    {
+                        @Override
+                        public void onComplete(@NonNull Task task)
+                        {
+                            if(task.isSuccessful())
+                            {
+                                SendUserToMainActivity();
+                                Toast.makeText(PostActivity.this, "Thank you", Toast.LENGTH_SHORT).show();
+                            }
+                            else
+                            {
+                                Toast.makeText(PostActivity.this, "Error", Toast.LENGTH_SHORT).show();
+                            }
+                        }
+                    });
+
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error)
+            {
+
+            }
+        });
     }
 
 
