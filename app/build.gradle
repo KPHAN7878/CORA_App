@@ -14,6 +14,9 @@ android {
         versionCode 1
         versionName "1.0"
 
+        //test - maybe remove later
+        //vectorDrawables.useSupportLibrary = true
+
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
@@ -41,6 +44,12 @@ dependencies {
 
     //added cardview library
     implementation 'de.hdodenhof:circleimageview:2.2.0'
+
+    //picasso library to display images
+    implementation 'com.squareup.picasso:picasso:2.71828'
+
+    //add library for recycle adapter
+    implementation 'com.firebaseui:firebase-ui-database:7.1.1'
     
     testImplementation 'junit:junit:4.+'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
