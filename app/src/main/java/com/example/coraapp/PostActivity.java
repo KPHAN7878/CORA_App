@@ -17,6 +17,7 @@ import android.widget.ImageButton;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -57,7 +58,8 @@ public class PostActivity extends AppCompatActivity {
 
 
     //time variables to create unique image name
-    private String saveCurrentDate, saveCurrentTime, postRandomID, storageURL;
+    private String saveCurrentDate, saveCurrentTime, postRandomID;
+    String storageURL;
     private String userID;
 
 
@@ -128,84 +130,96 @@ public class PostActivity extends AppCompatActivity {
         saveCurrentDate = currentDate.format(obtainDate.getTime());
 
         Calendar obtainTime = Calendar.getInstance();
-        SimpleDateFormat currentTime = new SimpleDateFormat("HH:mm");
+        SimpleDateFormat currentTime = new SimpleDateFormat("HH:mm:ss");
         saveCurrentTime = currentTime.format(obtainTime.getTime());
 
         postRandomID = saveCurrentDate + saveCurrentTime;
 
         StorageReference filePath = ImageRef.child("occurrence image").child(imageUri.getLastPathSegment() + postRandomID + ".jpg");
 
-        filePath.putFile(imageUri).addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>()
+        filePath.putFile(imageUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>()
         {
             @Override
-            public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task)
+            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot)
             {
-                if(task.isSuccessful())
+                filePath.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>()
                 {
-                    //retrieve download url of uploaded images
-                    storageURL = task.getResult().getStorage().getDownloadUrl().toString();
-                    Toast.makeText(PostActivity.this, "Image Uploaded", Toast.LENGTH_SHORT).show();
+                    @Override
+                    public void onSuccess(Uri uri)
+                    {
+                        storageURL = uri.toString();
 
-                    ReportInfoToDatabase();
-                }
+                        //this part is retrieving user's name from database to link with their post
+                        UserRef.child(userID).addValueEventListener(new ValueEventListener()
+                        {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot snapshot)
+                            {
+                                if(snapshot.exists())
+                                {
+                                    String fullname = snapshot.child("FullName").getValue().toString();
+
+
+
+                                    //create new node in database for occurrence and store information
+                                    // -store userID
+                                    // - store date
+                                    // - sotre title
+                                    // - store storage url for image
+                                    // - store full name
+                                    HashMap occurrenceMap = new HashMap();
+                                    occurrenceMap.put("UID", userID);
+                                    occurrenceMap.put("date", saveCurrentDate);
+                                    occurrenceMap.put("title", title);
+                                    occurrenceMap.put("image", storageURL);
+                                    occurrenceMap.put("FullName", fullname);
+
+                                    //add new occurrence reports to firebase under "Occurrence" node and assign unique ID for each post
+                                    OccurrenceRef.child(userID + postRandomID).updateChildren(occurrenceMap).addOnCompleteListener(new OnCompleteListener()
+                                    {
+                                        @Override
+                                        public void onComplete(@NonNull Task task)
+                                        {
+                                            if(task.isSuccessful())
+                                            {
+                                                SendUserToMainActivity();
+                                                Toast.makeText(PostActivity.this, "Thank you", Toast.LENGTH_SHORT).show();
+                                            }
+                                            else
+                                            {
+                                                Toast.makeText(PostActivity.this, "Error", Toast.LENGTH_SHORT).show();
+                                            }
+                                        }
+                                    });
+
+                                }
+                            }
+
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError error)
+                            {
+
+                            }
+                        });
+
+
+                    }
+                });
+
+
+                //ReportInfoToDatabase();
             }
         });
     }
 
 
-
+    /*
     //method to send occurrence information to database
     private void ReportInfoToDatabase()
     {
-        //this part is retrieving user's name from database to link with their post
-        UserRef.child(userID).addValueEventListener(new ValueEventListener()
-        {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot)
-            {
-                if(snapshot.exists())
-                {
-                    String fullname = snapshot.child("FullName").getValue().toString();
 
-                    //create new node in database for occurrence and store information
-                    // -store userID
-                    // - store date
-                    HashMap occurrenceMap = new HashMap();
-                    occurrenceMap.put("UID", userID);
-                    occurrenceMap.put("date", saveCurrentDate);
-                    occurrenceMap.put("title", title);
-                    occurrenceMap.put("image", storageURL);
-                    occurrenceMap.put("FullName", fullname);
-
-                    //add new occurrence reports to firebase under "Occurrence" node and assign unique ID for each post
-                    OccurrenceRef.child(userID + postRandomID).updateChildren(occurrenceMap).addOnCompleteListener(new OnCompleteListener()
-                    {
-                        @Override
-                        public void onComplete(@NonNull Task task)
-                        {
-                            if(task.isSuccessful())
-                            {
-                                SendUserToMainActivity();
-                                Toast.makeText(PostActivity.this, "Thank you", Toast.LENGTH_SHORT).show();
-                            }
-                            else
-                            {
-                                Toast.makeText(PostActivity.this, "Error", Toast.LENGTH_SHORT).show();
-                            }
-                        }
-                    });
-
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error)
-            {
-
-            }
-        });
     }
-
+    */
 
     //method to redirect user back to main activity after reporting occurrence
     private void SendUserToMainActivity()
