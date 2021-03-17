@@ -126,7 +126,7 @@ public class MainActivity extends AppCompatActivity
         FirebaseRecyclerOptions<Posts> options =
                 new FirebaseRecyclerOptions.Builder<Posts>()
 
-                    /*
+
                     .setQuery(PostsRef, new SnapshotParser<Posts>()
 
 
@@ -142,8 +142,8 @@ public class MainActivity extends AppCompatActivity
                                              snapshot.child("title").getValue().toString());
                         }
                     })
-                    */
-                    .setQuery(PostsRef, Posts.class)
+
+                    //.setQuery(PostsRef, Posts.class)
                     .build();
 
         adapter = new FirebaseRecyclerAdapter<Posts, PostsViewHolder>(options)
@@ -170,7 +170,7 @@ public class MainActivity extends AppCompatActivity
 
         postList.setAdapter(adapter);
 
-        //adapter.startListening();
+        adapter.startListening();
         //
     }
 
