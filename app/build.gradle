@@ -42,6 +42,9 @@ dependencies {
     implementation 'com.google.firebase:firebase-database:19.7.0'
     implementation 'com.google.firebase:firebase-storage:19.2.1'
 
+    //google maps
+    implementation 'com.google.android.gms:play-services-maps:17.0.0'
+
     //added cardview library
     implementation 'de.hdodenhof:circleimageview:2.2.0'
 
@@ -50,6 +53,9 @@ dependencies {
 
     //add library for recycle adapter
     implementation 'com.firebaseui:firebase-ui-database:7.1.1'
+
+    //for map
+    implementation 'com.github.shivpujan12:LocationPicker:2.0'
     
     testImplementation 'junit:junit:4.+'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'

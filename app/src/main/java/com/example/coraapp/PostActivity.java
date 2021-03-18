@@ -17,6 +17,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -46,6 +47,7 @@ public class PostActivity extends AppCompatActivity implements AdapterView.OnIte
 
 
     private Button submit_btn_post;
+    private Button location_button;
     private EditText Title_post;
     private EditText description_post;
     private ImageButton picture_post;
@@ -95,6 +97,7 @@ public class PostActivity extends AppCompatActivity implements AdapterView.OnIte
         Title_post = findViewById(R.id.Title_post);
         description_post = findViewById(R.id.description_post);
         picture_post = findViewById(R.id.picture_post);
+        location_button = findViewById(R.id.location_button);
 
 
         //initialize spinner with category string array
@@ -121,6 +124,15 @@ public class PostActivity extends AppCompatActivity implements AdapterView.OnIte
             }
         });
 
+        location_button.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                Intent mapIntent = new Intent(PostActivity.this, GetLocation.class);
+                startActivity(mapIntent);
+            }
+        });
 
         //when submit button is clicked
         submit_btn_post.setOnClickListener(new View.OnClickListener()
