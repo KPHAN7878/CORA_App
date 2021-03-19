@@ -15,6 +15,8 @@ import android.widget.TextView;
 import com.shivtechs.maplocationpicker.LocationPickerActivity;
 import com.shivtechs.maplocationpicker.MapUtility;
 
+//test
+
 public class GetLocation extends AppCompatActivity implements View.OnClickListener
 {
 
