@@ -22,7 +22,7 @@ public class GetLocation extends AppCompatActivity implements View.OnClickListen
     private TextView txtAddress;
     private static final int ADDRESS_PICKER_REQUEST = 1020;
 
-    String api_key = "AIzaSyCr-2Wjo_pY29-KlM5i1WbaBRkuLpMkb_8";
+    //String api_key = "AIzaSyCxq53zuF4EKyVIi6XkBQIJJ62GOUf4ACU";
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -30,7 +30,8 @@ public class GetLocation extends AppCompatActivity implements View.OnClickListen
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_get_location);
 
-        MapUtility.apiKey = getResources().getString(R.string.google_api_key);
+        //this part ????????
+        MapUtility.apiKey = getResources().getString(R.string.your_api_key);
         findViewById(R.id.btnAddressPicker).setOnClickListener(this);
         txtLatLong = findViewById(R.id.txtLatLong);
         txtAddress = findViewById(R.id.txtAddress);
