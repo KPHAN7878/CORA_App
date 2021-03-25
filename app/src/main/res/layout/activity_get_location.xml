@@ -38,4 +38,17 @@
         android:layout_below="@+id/txtLatLong"
         android:layout_marginTop="28dp"
         android:text="" />
+
+    <Button
+        android:id="@+id/submit_location_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/txtAddress"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="48dp"
+        android:layout_marginBottom="356dp"
+        android:text="Button" />
+
+
 </RelativeLayout>

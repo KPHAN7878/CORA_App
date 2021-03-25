@@ -45,7 +45,7 @@ public class PostActivity extends AppCompatActivity implements AdapterView.OnIte
 
     //SavePostInfo branch test comment
 
-
+    /** post data variables */
     private Button submit_btn_post;
     private Button location_button;
     private EditText Title_post;
@@ -53,6 +53,11 @@ public class PostActivity extends AppCompatActivity implements AdapterView.OnIte
     private ImageButton picture_post;
     private Spinner spinner;
 
+    /** coordinate variables */
+    String lat;
+    String lng;
+
+    /** spinner array */
     String[] category = {"Category", "Theft", "Burglary", "Assault", "Murder", "Suspicious Activity"};
     private String crime = "";
 
@@ -77,7 +82,7 @@ public class PostActivity extends AppCompatActivity implements AdapterView.OnIte
     private String userID;
 
 
-
+    private Button test_btn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -107,6 +112,9 @@ public class PostActivity extends AppCompatActivity implements AdapterView.OnIte
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(adapter);
 
+
+        test_btn = findViewById(R.id.test_btn);
+
         /*
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.category, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -134,6 +142,21 @@ public class PostActivity extends AppCompatActivity implements AdapterView.OnIte
             }
         });
 
+        /** this part is to get the long and lat for the occurrence post*/
+        try
+        {
+            Bundle extras = getIntent().getExtras();
+            if(extras != null)
+            {
+                lat = extras.getString("lat");
+                lng = extras.getString("lng");
+            }
+        }
+        catch(Exception e)
+        {
+
+        }
+
         //when submit button is clicked
         submit_btn_post.setOnClickListener(new View.OnClickListener()
         {
@@ -143,7 +166,19 @@ public class PostActivity extends AppCompatActivity implements AdapterView.OnIte
                 InitiatePost();
             }
         });
+
+
+        test_btn.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                Toast.makeText(PostActivity.this, "Lat: " + lat + "Lang: " + lng, Toast.LENGTH_LONG).show();
+            }
+        });
     }
+
+
 
 
     //method that starts the post process
@@ -242,7 +277,7 @@ public class PostActivity extends AppCompatActivity implements AdapterView.OnIte
     }
 
 
-    //method that actually stores the image to firebase storage
+    //if user chooses to upload image
     private void StoreImageToFirebaseStorage()
     {
         Calendar obtainDate = Calendar.getInstance();
