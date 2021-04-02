@@ -108,7 +108,7 @@ public class MainActivity extends AppCompatActivity
         postList.setLayoutManager(linearLayoutManager);
         */
 
-
+        //
         //access navigation_menu.xml in menu folder when clicked
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener()
         {
