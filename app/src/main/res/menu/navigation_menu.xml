@@ -18,6 +18,14 @@
         android:title="My Posts"/>
 
     <item
+        android:id="@+id/nav_map"
+        android:title="View Map"/>
+
+    <item
+        android:id="@+id/nav_charts"
+        android:title="View Chart"/>
+
+    <item
         android:id="@+id/nav_logout"
         android:title="Logout"/>
 

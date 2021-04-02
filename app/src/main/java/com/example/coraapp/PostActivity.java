@@ -195,15 +195,29 @@ public class PostActivity extends AppCompatActivity implements AdapterView.OnIte
         {
             Toast.makeText(this, "Please Enter a Title", Toast.LENGTH_SHORT).show();
         }
+        else if(TextUtils.isEmpty(lng) && TextUtils.isEmpty(lat))
+        {
+            Toast.makeText(this, "Please Choose Location", Toast.LENGTH_SHORT).show();
+        }
+
+        /**
         else if(!Uri.EMPTY.equals(imageUri))
         {
             NoImageToFirebase();
         }
+        */
+        else if(imageUri == null)
+        {
+            NoImageToFirebase();
+        }
+
         else
         {
             StoreImageToFirebaseStorage();
         }
     }
+
+
 
 
     //if the user does not submit an image
@@ -246,6 +260,8 @@ public class PostActivity extends AppCompatActivity implements AdapterView.OnIte
                     occurrenceMap.put("image", storageURL);
                     occurrenceMap.put("category", crime);
                     occurrenceMap.put("FullName", fullname);
+                    occurrenceMap.put("latitude", lat);
+                    occurrenceMap.put("longitude", lng);
 
                     //add new occurrence reports to firebase under "Occurrence" node and assign unique ID for each post
                     OccurrenceRef.child(userID + postRandomID).updateChildren(occurrenceMap).addOnCompleteListener(new OnCompleteListener()
@@ -275,6 +291,8 @@ public class PostActivity extends AppCompatActivity implements AdapterView.OnIte
             }
         });
     }
+
+    
 
 
     //if user chooses to upload image
@@ -333,6 +351,8 @@ public class PostActivity extends AppCompatActivity implements AdapterView.OnIte
                                     occurrenceMap.put("image", storageURL);
                                     occurrenceMap.put("category", crime);
                                     occurrenceMap.put("FullName", fullname);
+                                    occurrenceMap.put("latitude", lat);
+                                    occurrenceMap.put("longitude", lng);
 
                                     //add new occurrence reports to firebase under "Occurrence" node and assign unique ID for each post
                                     OccurrenceRef.child(userID + postRandomID).updateChildren(occurrenceMap).addOnCompleteListener(new OnCompleteListener()

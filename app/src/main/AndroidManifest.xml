@@ -19,7 +19,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.CORAApp">
-        <activity android:name=".GetLocation"></activity>
+        <activity android:name=".CrimeMapActivity"></activity>
+        <activity android:name=".GetLocation" />
 
         <meta-data
             android:name="com.google.android.gms.version"
@@ -34,8 +35,7 @@
         -->
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-
-            android:value="@string/your_api_key"/>
+            android:value="@string/your_api_key" />
 
         <activity android:name=".PostActivity" />
         <activity android:name=".SetupActivity" />

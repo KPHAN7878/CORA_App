@@ -37,6 +37,8 @@ import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 
+import java.util.List;
+
 public class MainActivity extends AppCompatActivity
 {
     private NavigationView navigationView;
@@ -77,7 +79,7 @@ public class MainActivity extends AppCompatActivity
         getSupportActionBar().setTitle("Home");
 
 
-        //nav bar stuff
+        /** nav bar stuff */
         drawerLayout = findViewById(R.id.draw_layout);
         actionBarDrawerToggle = new ActionBarDrawerToggle(MainActivity.this, drawerLayout, R.string.drawer_open, R.string.drawer_close);
         drawerLayout.addDrawerListener(actionBarDrawerToggle);
@@ -175,9 +177,16 @@ public class MainActivity extends AppCompatActivity
             @Override
             protected void onBindViewHolder(PostsViewHolder holder, final int position, Posts model)
             {
+
+                /** test for displaying no image */
+
+
                 holder.usersName.setText(model.getFullName());
                 holder.Date.setText(model.getDate());
                 holder.Title.setText(model.getTitle());
+
+                /** test for displaying no image */
+
                 Picasso.get().load(model.getImage()).into(holder.Image);
             }
         };
@@ -249,11 +258,30 @@ public class MainActivity extends AppCompatActivity
             case R.id.nav_posts:
                 Toast.makeText(this, "Post button clicked", Toast.LENGTH_SHORT).show();
                 break;
+            /** added */
+            case R.id.nav_map:
+                SendUserToMapActivity();
+                break;
+            /** added */
+            case R.id.nav_charts:
+                SendUserToChartsActivity();
+                break;
             case R.id.nav_logout:
                 mAuth.signOut();
                 SendUserToLoginActivity();
                 break;
         }
+    }
+
+    /** add later */
+    private void SendUserToChartsActivity()
+    {
+    }
+
+
+    /** add later */
+    private void SendUserToMapActivity()
+    {
     }
 
 
