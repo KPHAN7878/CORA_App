@@ -98,6 +98,7 @@ public class PostActivity extends AppCompatActivity implements AdapterView.OnIte
         UserRef = FirebaseDatabase.getInstance().getReference().child("Users");
         OccurrenceRef = FirebaseDatabase.getInstance().getReference().child("Occurrence");
 
+        //initialize
         submit_btn_post = findViewById(R.id.submit_btn_post);
         Title_post = findViewById(R.id.Title_post);
         description_post = findViewById(R.id.description_post);
@@ -129,6 +130,7 @@ public class PostActivity extends AppCompatActivity implements AdapterView.OnIte
             public void onClick(View v)
             {
                 OpenGallery();
+
             }
         });
 
