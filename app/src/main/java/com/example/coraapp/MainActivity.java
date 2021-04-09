@@ -261,6 +261,7 @@ public class MainActivity extends AppCompatActivity
             /** added */
             case R.id.nav_map:
                 SendUserToMapActivity();
+
                 break;
             /** added */
             case R.id.nav_charts:
@@ -282,6 +283,8 @@ public class MainActivity extends AppCompatActivity
     /** add later */
     private void SendUserToMapActivity()
     {
+        Intent viewMapIntent = new Intent(MainActivity.this, MapPlot.class);
+        startActivity(viewMapIntent);
     }
 
 
