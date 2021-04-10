@@ -24,7 +24,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.CORAApp">
-        <activity android:name=".Threads"></activity>
+        <activity android:name=".CreateThread"></activity>
+        <activity android:name=".Threads" />
         <activity android:name=".CreateComment" />
         <activity android:name=".ForumsHome" />
         <activity android:name=".AddCategory" />
