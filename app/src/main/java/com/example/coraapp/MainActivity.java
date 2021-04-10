@@ -177,6 +177,9 @@ public class MainActivity extends AppCompatActivity
             @Override
             protected void onBindViewHolder(PostsViewHolder holder, final int position, Posts model)
             {
+                //get unique for each occurrence post
+                final String OccurrenceKey = getRef(position).getKey();
+
 
                 /** test for displaying no image */
 
@@ -188,6 +191,8 @@ public class MainActivity extends AppCompatActivity
                 /** test for displaying no image */
 
                 Picasso.get().load(model.getImage()).into(holder.Image);
+
+                //holder.itemView
             }
         };
 
@@ -248,6 +253,8 @@ public class MainActivity extends AppCompatActivity
         {
             case R.id.nav_home:
                 Toast.makeText(this, "Home button clicked", Toast.LENGTH_SHORT).show();
+                Intent addCategory = new Intent(MainActivity.this, AddCategory.class);
+                startActivity(addCategory);
                 break;
             case R.id.nav_create:
                 SendUserToPostActivity();
@@ -261,7 +268,10 @@ public class MainActivity extends AppCompatActivity
             /** added */
             case R.id.nav_map:
                 SendUserToMapActivity();
-
+                break;
+            case R.id.nav_forums:
+                Intent ForumsIntent = new Intent(MainActivity.this, ForumsHome.class);
+                startActivity(ForumsIntent);
                 break;
             /** added */
             case R.id.nav_charts:
