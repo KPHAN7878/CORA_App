@@ -138,6 +138,7 @@ public class CreateThread extends AppCompatActivity
 
         if(TextUtils.isEmpty(title))
         {
+
             Toast.makeText(this, "Please Enter a Title", Toast.LENGTH_SHORT).show();
         }
         else if(imageUri == null)
