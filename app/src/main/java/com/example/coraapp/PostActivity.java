@@ -134,6 +134,7 @@ public class PostActivity extends AppCompatActivity implements AdapterView.OnIte
             }
         });
 
+        //listener to acquire location
         location_button.setOnClickListener(new View.OnClickListener()
         {
             @Override

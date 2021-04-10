@@ -26,8 +26,11 @@ public class Threads extends AppCompatActivity
         post_button = findViewById(R.id.post_button);
         toolbar_text = findViewById(R.id.toolbar_text);
 
+
         /** get string extra from previous */
         testString = getIntent().getExtras().get("Topic").toString();
+
+        toolbar_text.setText(testString);
 
         back_button.setOnClickListener(new View.OnClickListener()
         {
@@ -45,6 +48,7 @@ public class Threads extends AppCompatActivity
             public void onClick(View v)
             {
                 Intent postIntent = new Intent(Threads.this, CreateThread.class);
+                postIntent.putExtra("Topic", testString);
                 startActivity(postIntent);
             }
         });
