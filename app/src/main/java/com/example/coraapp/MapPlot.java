@@ -41,6 +41,7 @@ public class MapPlot extends AppCompatActivity implements OnMapReadyCallback
     {
         mMap = googleMap;
 
+
         mapRef.addListenerForSingleValueEvent(new ValueEventListener()
         {
             @Override
@@ -69,7 +70,9 @@ public class MapPlot extends AppCompatActivity implements OnMapReadyCallback
             }
         });
 
-        /**
+
+
+
         final Double[] latitude = {7.023};
         final Double[] longitude = {79.89};
 
@@ -79,6 +82,6 @@ public class MapPlot extends AppCompatActivity implements OnMapReadyCallback
                 .title("Marker in Sydney"));
         mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
 
-         */
+
     }
 }
