@@ -7,5 +7,6 @@
 
     <!--string resource for api key-->
     <string name="your_api_key">AIzaSyCxq53zuF4EKyVIi6XkBQIJJ62GOUf4ACU</string>
+    <string name="title_activity_maps">Map</string>
 
 </resources>

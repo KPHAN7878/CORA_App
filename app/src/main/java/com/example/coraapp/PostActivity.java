@@ -45,7 +45,7 @@ public class PostActivity extends AppCompatActivity implements AdapterView.OnIte
 
     //SavePostInfo branch test comment
 
-
+    /** post data variables */
     private Button submit_btn_post;
     private Button location_button;
     private EditText Title_post;
@@ -53,6 +53,11 @@ public class PostActivity extends AppCompatActivity implements AdapterView.OnIte
     private ImageButton picture_post;
     private Spinner spinner;
 
+    /** coordinate variables */
+    String lat;
+    String lng;
+
+    /** spinner array */
     String[] category = {"Category", "Theft", "Burglary", "Assault", "Murder", "Suspicious Activity"};
     private String crime = "";
 
@@ -77,7 +82,7 @@ public class PostActivity extends AppCompatActivity implements AdapterView.OnIte
     private String userID;
 
 
-
+    private Button test_btn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -93,6 +98,7 @@ public class PostActivity extends AppCompatActivity implements AdapterView.OnIte
         UserRef = FirebaseDatabase.getInstance().getReference().child("Users");
         OccurrenceRef = FirebaseDatabase.getInstance().getReference().child("Occurrence");
 
+        //initialize
         submit_btn_post = findViewById(R.id.submit_btn_post);
         Title_post = findViewById(R.id.Title_post);
         description_post = findViewById(R.id.description_post);
@@ -106,6 +112,9 @@ public class PostActivity extends AppCompatActivity implements AdapterView.OnIte
         ArrayAdapter adapter = new ArrayAdapter(this, android.R.layout.simple_spinner_item, category);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(adapter);
+
+
+        test_btn = findViewById(R.id.test_btn);
 
         /*
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.category, android.R.layout.simple_spinner_item);
@@ -121,9 +130,11 @@ public class PostActivity extends AppCompatActivity implements AdapterView.OnIte
             public void onClick(View v)
             {
                 OpenGallery();
+
             }
         });
 
+        //listener to acquire location
         location_button.setOnClickListener(new View.OnClickListener()
         {
             @Override
@@ -134,6 +145,21 @@ public class PostActivity extends AppCompatActivity implements AdapterView.OnIte
             }
         });
 
+        /** this part is to get the long and lat for the occurrence post*/
+        try
+        {
+            Bundle extras = getIntent().getExtras();
+            if(extras != null)
+            {
+                lat = extras.getString("lat");
+                lng = extras.getString("lng");
+            }
+        }
+        catch(Exception e)
+        {
+
+        }
+
         //when submit button is clicked
         submit_btn_post.setOnClickListener(new View.OnClickListener()
         {
@@ -143,7 +169,19 @@ public class PostActivity extends AppCompatActivity implements AdapterView.OnIte
                 InitiatePost();
             }
         });
+
+
+        test_btn.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                Toast.makeText(PostActivity.this, "Lat: " + lat + "Lang: " + lng, Toast.LENGTH_LONG).show();
+            }
+        });
     }
+
+
 
 
     //method that starts the post process
@@ -160,15 +198,29 @@ public class PostActivity extends AppCompatActivity implements AdapterView.OnIte
         {
             Toast.makeText(this, "Please Enter a Title", Toast.LENGTH_SHORT).show();
         }
+        else if(TextUtils.isEmpty(lng) && TextUtils.isEmpty(lat))
+        {
+            Toast.makeText(this, "Please Choose Location", Toast.LENGTH_SHORT).show();
+        }
+
+        /**
         else if(!Uri.EMPTY.equals(imageUri))
         {
             NoImageToFirebase();
         }
+        */
+        else if(imageUri == null)
+        {
+            NoImageToFirebase();
+        }
+
         else
         {
             StoreImageToFirebaseStorage();
         }
     }
+
+
 
 
     //if the user does not submit an image
@@ -211,6 +263,8 @@ public class PostActivity extends AppCompatActivity implements AdapterView.OnIte
                     occurrenceMap.put("image", storageURL);
                     occurrenceMap.put("category", crime);
                     occurrenceMap.put("FullName", fullname);
+                    occurrenceMap.put("latitude", lat);
+                    occurrenceMap.put("longitude", lng);
 
                     //add new occurrence reports to firebase under "Occurrence" node and assign unique ID for each post
                     OccurrenceRef.child(userID + postRandomID).updateChildren(occurrenceMap).addOnCompleteListener(new OnCompleteListener()
@@ -241,8 +295,10 @@ public class PostActivity extends AppCompatActivity implements AdapterView.OnIte
         });
     }
 
+    
 
-    //method that actually stores the image to firebase storage
+
+    //if user chooses to upload image
     private void StoreImageToFirebaseStorage()
     {
         Calendar obtainDate = Calendar.getInstance();
@@ -298,6 +354,8 @@ public class PostActivity extends AppCompatActivity implements AdapterView.OnIte
                                     occurrenceMap.put("image", storageURL);
                                     occurrenceMap.put("category", crime);
                                     occurrenceMap.put("FullName", fullname);
+                                    occurrenceMap.put("latitude", lat);
+                                    occurrenceMap.put("longitude", lng);
 
                                     //add new occurrence reports to firebase under "Occurrence" node and assign unique ID for each post
                                     OccurrenceRef.child(userID + postRandomID).updateChildren(occurrenceMap).addOnCompleteListener(new OnCompleteListener()

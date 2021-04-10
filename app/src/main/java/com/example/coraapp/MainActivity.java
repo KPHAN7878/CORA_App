@@ -37,6 +37,8 @@ import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 
+import java.util.List;
+
 public class MainActivity extends AppCompatActivity
 {
     private NavigationView navigationView;
@@ -57,6 +59,9 @@ public class MainActivity extends AppCompatActivity
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
+
+        //test
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
@@ -74,7 +79,7 @@ public class MainActivity extends AppCompatActivity
         getSupportActionBar().setTitle("Home");
 
 
-        //nav bar stuff
+        /** nav bar stuff */
         drawerLayout = findViewById(R.id.draw_layout);
         actionBarDrawerToggle = new ActionBarDrawerToggle(MainActivity.this, drawerLayout, R.string.drawer_open, R.string.drawer_close);
         drawerLayout.addDrawerListener(actionBarDrawerToggle);
@@ -172,10 +177,22 @@ public class MainActivity extends AppCompatActivity
             @Override
             protected void onBindViewHolder(PostsViewHolder holder, final int position, Posts model)
             {
+                //get unique for each occurrence post
+                final String OccurrenceKey = getRef(position).getKey();
+
+
+                /** test for displaying no image */
+
+
                 holder.usersName.setText(model.getFullName());
                 holder.Date.setText(model.getDate());
                 holder.Title.setText(model.getTitle());
+
+                /** test for displaying no image */
+
                 Picasso.get().load(model.getImage()).into(holder.Image);
+
+                //holder.itemView
             }
         };
 
@@ -236,6 +253,8 @@ public class MainActivity extends AppCompatActivity
         {
             case R.id.nav_home:
                 Toast.makeText(this, "Home button clicked", Toast.LENGTH_SHORT).show();
+                Intent addCategory = new Intent(MainActivity.this, AddCategory.class);
+                startActivity(addCategory);
                 break;
             case R.id.nav_create:
                 SendUserToPostActivity();
@@ -246,11 +265,36 @@ public class MainActivity extends AppCompatActivity
             case R.id.nav_posts:
                 Toast.makeText(this, "Post button clicked", Toast.LENGTH_SHORT).show();
                 break;
+            /** added */
+            case R.id.nav_map:
+                SendUserToMapActivity();
+                break;
+            case R.id.nav_forums:
+                Intent ForumsIntent = new Intent(MainActivity.this, ForumsHome.class);
+                startActivity(ForumsIntent);
+                break;
+            /** added */
+            case R.id.nav_charts:
+                SendUserToChartsActivity();
+                break;
             case R.id.nav_logout:
                 mAuth.signOut();
                 SendUserToLoginActivity();
                 break;
         }
+    }
+
+    /** add later */
+    private void SendUserToChartsActivity()
+    {
+    }
+
+
+    /** add later */
+    private void SendUserToMapActivity()
+    {
+        Intent viewMapIntent = new Intent(MainActivity.this, MapPlot.class);
+        startActivity(viewMapIntent);
     }
 
 

@@ -6,7 +6,10 @@ package com.example.coraapp;
 
 public class Posts
 {
-    public String FullName, UID, date, image, title;
+    public String FullName, UID, date, title;
+
+    /** testing "" for image not present */
+    public String  image = "";
 
 
 

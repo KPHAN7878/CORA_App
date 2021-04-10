@@ -10,6 +10,7 @@ import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.view.ContextThemeWrapper;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.shivtechs.maplocationpicker.LocationPickerActivity;
@@ -24,6 +25,12 @@ public class GetLocation extends AppCompatActivity implements View.OnClickListen
     private TextView txtAddress;
     private static final int ADDRESS_PICKER_REQUEST = 1020;
 
+    private Button submit_location_btn;
+
+    /** variables to store coordinate */
+    private String lat;
+    private String lng;
+
     //String api_key = "AIzaSyCxq53zuF4EKyVIi6XkBQIJJ62GOUf4ACU";
 
     @Override
@@ -35,8 +42,33 @@ public class GetLocation extends AppCompatActivity implements View.OnClickListen
         //this part ????????
         MapUtility.apiKey = getResources().getString(R.string.your_api_key);
         findViewById(R.id.btnAddressPicker).setOnClickListener(this);
+
+        //button initializer
+        submit_location_btn = findViewById(R.id.submit_location_btn);
+
         txtLatLong = findViewById(R.id.txtLatLong);
         txtAddress = findViewById(R.id.txtAddress);
+
+
+
+
+        /*
+        submit_location_btn.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                Intent gotLocIntent = new Intent(GetLocation.this, PostActivity.class);
+
+                gotLocIntent.putExtra("lat", lat);
+                gotLocIntent.putExtra("lng", lng);
+
+                startActivity(gotLocIntent);
+                finish();
+
+            }
+        });
+        */
 
     }
 
@@ -75,6 +107,11 @@ public class GetLocation extends AppCompatActivity implements View.OnClickListen
                     "addressline2"
                      */
 
+                    /** convert long and lat to string */
+                    lat = String.valueOf(currentLatitude);
+                    lng = String.valueOf(currentLongitude);
+
+
                     txtAddress.setText(new StringBuilder().append("addressline2: ").append
                             (completeAddress.getString("addressline2")).append("\ncity: ").append
                             (completeAddress.getString("city")).append("\npostalcode: ").append
@@ -84,7 +121,19 @@ public class GetLocation extends AppCompatActivity implements View.OnClickListen
                     txtLatLong.setText(new StringBuilder().append("Lat:").append(currentLatitude).append
                             ("  Long:").append(currentLongitude).toString());
 
+
+
+                    Intent gotLocIntent = new Intent(GetLocation.this, PostActivity.class);
+                    gotLocIntent.putExtra("lat", lat);
+                    gotLocIntent.putExtra("lng", lng);
+
+                    startActivity(gotLocIntent);
+
+
+
                 }
+
+
             } catch (Exception ex) {
                 ex.printStackTrace();
             }
