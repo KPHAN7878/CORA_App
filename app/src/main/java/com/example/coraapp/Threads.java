@@ -163,7 +163,7 @@ public class Threads extends AppCompatActivity
                         Intent goToDiscussion = new Intent(Threads.this, Discussion.class);
                         //send unique thread key to next activity
                         goToDiscussion.putExtra("ThreadKey", ThreadKey);
-                        goToDiscussion.putExtra("Topic", testString);
+                        goToDiscussion.putExtra("Topic", testString+"Threads");
                         startActivity(goToDiscussion);
                     }
                 });

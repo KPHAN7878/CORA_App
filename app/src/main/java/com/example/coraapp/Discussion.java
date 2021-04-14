@@ -19,6 +19,7 @@ import com.firebase.ui.database.SnapshotParser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.squareup.picasso.Picasso;
 
 public class Discussion extends AppCompatActivity
@@ -28,7 +29,8 @@ public class Discussion extends AppCompatActivity
     private String getTopicString;
 
     //firebase variables
-    private DatabaseReference threadRef, commentsRef;
+    private DatabaseReference threadRef;
+    private Query commentsRef;
 
     //recycleradapter variable
     private RecyclerView DiscussionList;
@@ -71,7 +73,15 @@ public class Discussion extends AppCompatActivity
     {
         super.onStart();
 
-        commentsRef = FirebaseDatabase.getInstance().getReference().child(getTopicString).child(getThreadString).child("comments");
+        try
+        {
+            commentsRef = FirebaseDatabase.getInstance().getReference().child(getTopicString).child(getThreadString).child("comments");
+        }
+        catch (Exception e)
+        {
+
+        }
+
 
         //ThreadsRef = FirebaseDatabase.getInstance().getReference().child(testString + "Threads");
 
