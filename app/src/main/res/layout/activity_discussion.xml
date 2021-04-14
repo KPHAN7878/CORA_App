@@ -31,7 +31,7 @@
     <EditText
         android:id="@+id/comment_edittext_id"
         android:layout_width="290dp"
-        android:layout_height="66dp"
+        android:layout_height="50dp"
         android:layout_alignParentStart="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentBottom="true"
@@ -40,13 +40,13 @@
         android:layout_marginBottom="0dp"
         android:background="#DCD9D6"
         android:ems="10"
-        android:inputType="textPersonName"
-        android:text="comment" />
+        android:hint="comment"
+        android:inputType="textPersonName" />
 
     <ImageButton
         android:id="@+id/uploadpic_id"
         android:layout_width="61dp"
-        android:layout_height="65dp"
+        android:layout_height="50dp"
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentBottom="true"
@@ -59,7 +59,7 @@
     <ImageView
         android:id="@+id/send_comment_id"
         android:layout_width="60dp"
-        android:layout_height="65dp"
+        android:layout_height="50dp"
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentBottom="true"
