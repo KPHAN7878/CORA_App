@@ -22,7 +22,6 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
-import com.squareup.picasso.Picasso;
 
 public class Threads extends AppCompatActivity
 {
@@ -118,6 +117,7 @@ public class Threads extends AppCompatActivity
                                         snapshot.child("image").getValue().toString(),
                                         snapshot.child("description").getValue().toString(),
                                         snapshot.child("title").getValue().toString());
+                                        //snapshot.child("Uploader").getValue().toString();
                             }
                         })
 
@@ -194,7 +194,7 @@ public class Threads extends AppCompatActivity
             Title = itemView.findViewById(R.id.t_title);
             Description = itemView.findViewById(R.id.t_description);
 
-            thread_cardview_id = itemView.findViewById(R.id.thread_cardview_id);
+            thread_cardview_id = itemView.findViewById(R.id.t_cardview_id);
         }
 
     }
