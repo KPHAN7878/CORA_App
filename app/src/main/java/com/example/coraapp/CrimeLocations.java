@@ -2,17 +2,18 @@ package com.example.coraapp;
 
 public class CrimeLocations
 {
-    public String latitude, longitude;
+    public String latitude, longitude, category;
 
     public CrimeLocations()
     {
 
     }
 
-    public CrimeLocations(String latitude, String longitude)
+    public CrimeLocations(String latitude, String longitude, String category)
     {
         this.latitude=latitude;
         this.longitude=longitude;
+        this.category = category;
     }
 
     /*
