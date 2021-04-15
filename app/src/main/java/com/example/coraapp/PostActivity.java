@@ -56,6 +56,8 @@ public class PostActivity extends AppCompatActivity implements AdapterView.OnIte
     /** coordinate variables */
     String lat;
     String lng;
+    String zipcode;
+    String city;
 
     /** spinner array */
     String[] category = {"Category", "Theft", "Burglary", "Assault", "Murder", "Suspicious Activity"};
@@ -153,6 +155,9 @@ public class PostActivity extends AppCompatActivity implements AdapterView.OnIte
             {
                 lat = extras.getString("lat");
                 lng = extras.getString("lng");
+                zipcode = extras.getString("zip");
+                city = extras.getString("city");
+
             }
         }
         catch(Exception e)
@@ -265,6 +270,8 @@ public class PostActivity extends AppCompatActivity implements AdapterView.OnIte
                     occurrenceMap.put("FullName", fullname);
                     occurrenceMap.put("latitude", lat);
                     occurrenceMap.put("longitude", lng);
+                    occurrenceMap.put("zipcode", zipcode);
+                    occurrenceMap.put("city", city);
 
                     //add new occurrence reports to firebase under "Occurrence" node and assign unique ID for each post
                     OccurrenceRef.child(userID + postRandomID).updateChildren(occurrenceMap).addOnCompleteListener(new OnCompleteListener()
@@ -356,6 +363,8 @@ public class PostActivity extends AppCompatActivity implements AdapterView.OnIte
                                     occurrenceMap.put("FullName", fullname);
                                     occurrenceMap.put("latitude", lat);
                                     occurrenceMap.put("longitude", lng);
+                                    occurrenceMap.put("zipcode", zipcode);
+                                    occurrenceMap.put("city", city);
 
                                     //add new occurrence reports to firebase under "Occurrence" node and assign unique ID for each post
                                     OccurrenceRef.child(userID + postRandomID).updateChildren(occurrenceMap).addOnCompleteListener(new OnCompleteListener()
