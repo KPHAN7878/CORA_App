@@ -7,15 +7,12 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.content.Context;
 import android.content.Intent;
-import android.media.Image;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -25,19 +22,13 @@ import androidx.appcompat.widget.Toolbar;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.firebase.ui.database.SnapshotParser;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
-import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
-
-import java.util.List;
 
 public class MainActivity extends AppCompatActivity
 {
@@ -90,13 +81,11 @@ public class MainActivity extends AppCompatActivity
 
 
         /*
-
         //recyclerview for displaying posts
         postList = findViewById(R.id.all_users_post_list);
         postList.setLayoutManager(new LinearLayoutManager(this));
-
         */
-
+        
         postList = (RecyclerView) findViewById(R.id.all_users_post_list);
         postList.setHasFixedSize(true);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
@@ -128,9 +117,8 @@ public class MainActivity extends AppCompatActivity
 
         DisplayAllPosts();
 
+
     }
-
-
     //method that displays all posts
     //using firebse recycle adapter
     private void DisplayAllPosts()
@@ -281,6 +269,9 @@ public class MainActivity extends AppCompatActivity
                 mAuth.signOut();
                 SendUserToLoginActivity();
                 break;
+            case R.id.nav_admin:
+                SendUserToAdminActivity();
+                break;
         }
     }
 
@@ -303,6 +294,13 @@ public class MainActivity extends AppCompatActivity
     {
         Intent newReportIntent = new Intent(MainActivity.this, PostActivity.class);
         startActivity(newReportIntent);
+    }
+
+    //Admin stuff
+    private void SendUserToAdminActivity()
+    {
+        Intent adminIntent = new Intent(MainActivity.this,AdminActivity.class);
+        startActivity(adminIntent);
     }
 
 

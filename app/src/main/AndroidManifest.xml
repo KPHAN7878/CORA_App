@@ -24,8 +24,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.CORAApp">
-        <activity android:name=".Discussion"></activity>
-        <activity android:name=".CreateThread" />
+        <activity android:name=".CreateThread"></activity>
         <activity android:name=".Threads" />
         <activity android:name=".CreateComment" />
         <activity android:name=".ForumsHome" />
@@ -54,6 +53,8 @@
             android:value="@integer/google_play_services_version" />
 
         <activity android:name=".PostActivity" />
+        <activity android:name=".AdminActivity" />
+        <activity android:name=".AllUsersActivity" />
         <activity android:name=".SetupActivity" />
         <activity android:name=".RegisterActivity" />
         <activity android:name=".LoginActivity">
