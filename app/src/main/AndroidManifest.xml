@@ -24,7 +24,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.CORAApp">
-        <activity android:name=".CreateThread"></activity>
+        <activity android:name=".BarChartActivity"></activity>
+        <activity android:name=".MapFilter" />
+        <activity android:name=".Discussion" />
+        <activity android:name=".CreateThread" />
         <activity android:name=".Threads" />
         <activity android:name=".CreateComment" />
         <activity android:name=".ForumsHome" />
