@@ -1,14 +1,10 @@
 package com.example.coraapp;
 
-import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -20,10 +16,8 @@ import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.firebase.ui.database.SnapshotParser;
 import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
-import com.squareup.picasso.Picasso;
 
 public class AllUsersActivity extends AppCompatActivity {
 
@@ -48,7 +42,7 @@ public class AllUsersActivity extends AppCompatActivity {
     }
 
 
-    //method that displays all posts
+    //method that displays all users
     //using firebse recycle adapter
     private void DisplayAllUsers()
     {
@@ -72,7 +66,6 @@ public class AllUsersActivity extends AppCompatActivity {
                             }
                         })
 
-                        //.setQuery(PostsRef, Posts.class)
                         .build();
 
         adapter = new FirebaseRecyclerAdapter<Users, AllUsersActivity.UsersViewHolder>(options)
@@ -98,17 +91,21 @@ public class AllUsersActivity extends AppCompatActivity {
             }
         };
 
-        Log.d("aaaa", userList.toString());
         userList.setAdapter(adapter);
 
         adapter.startListening();
         //
     }
 
-    //static class for "FirebseRecyclerAdapter" in method "DisplayAllPosts"
-    public static class UsersViewHolder extends RecyclerView.ViewHolder
+    public void removeFromDB(int position) {
+        adapter.getRef(position).removeValue();
+    }
+
+    //static class for "FirebseRecyclerAdapter" in method "DisplayAllUsers"
+    public class UsersViewHolder extends RecyclerView.ViewHolder
     {
         TextView usersName;
+        Button remove_user_from_db;
 
         //constructor
         public UsersViewHolder(@NonNull View itemView)
@@ -116,6 +113,18 @@ public class AllUsersActivity extends AppCompatActivity {
             super(itemView);
 
             usersName = itemView.findViewById(R.id.User_user_name);
+            remove_user_from_db = itemView.findViewById(R.id.delete_user);
+
+            remove_user_from_db.setOnClickListener(new View.OnClickListener()
+            {
+                @Override
+                public void onClick(View itemView)
+                {
+                    if(itemView.equals(remove_user_from_db)) {
+                        removeFromDB(getAdapterPosition());
+                    }
+                }
+            });
         }
 
     }

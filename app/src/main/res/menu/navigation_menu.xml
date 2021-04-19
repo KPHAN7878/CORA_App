@@ -3,7 +3,7 @@
 
     <item
         android:id="@+id/nav_home"
-        android:title="Home"/>
+        android:title="Home" />
 
     <item
         android:id="@+id/nav_create"
@@ -36,6 +36,9 @@
     <item
         android:id="@+id/nav_admin"
         android:title="Admin" />
+    <item
+        android:id="@+id/nine_one_one"
+        android:title="CALL 911" />
 
 
 </menu>

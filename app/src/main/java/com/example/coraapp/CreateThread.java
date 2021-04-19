@@ -206,9 +206,8 @@ public class CreateThread extends AppCompatActivity
                                     occurrenceMap.put("image", storageURL);
                                     occurrenceMap.put("FullName", fullname);
                                     occurrenceMap.put("Username", username);
-                                    occurrenceMap.put("Uploader", "yes");
 
-                                    //add new threads to firebase under respective thread category node and assign unique ID for each post
+                                    //add new occurrence reports to firebase under "Occurrence" node and assign unique ID for each post
                                     ThreadsRef.child(userID + postRandomID).updateChildren(occurrenceMap).addOnCompleteListener(new OnCompleteListener()
                                     {
                                         @Override
@@ -224,17 +223,6 @@ public class CreateThread extends AppCompatActivity
                                             {
                                                 Toast.makeText(CreateThread.this, "Error", Toast.LENGTH_SHORT).show();
                                             }
-                                        }
-                                    });
-
-
-                                    /** Add a copy of the thread data under subnode "comments" to use single recycleradapter when displaying in discussion later */
-                                    ThreadsRef.child(userID + postRandomID).child("comments").child(userID + postRandomID + "-comment").updateChildren(occurrenceMap).addOnCompleteListener(new OnCompleteListener()
-                                    {
-                                        @Override
-                                        public void onComplete(@NonNull Task task)
-                                        {
-
                                         }
                                     });
 
@@ -301,7 +289,6 @@ public class CreateThread extends AppCompatActivity
                     occurrenceMap.put("image", storageURL);
                     occurrenceMap.put("FullName", fullname);
                     occurrenceMap.put("Username", username);
-                    occurrenceMap.put("Uploader", "yes");
 
                     //add new occurrence reports to firebase under "Occurrence" node and assign unique ID for each post
                     ThreadsRef.child(userID + postRandomID).updateChildren(occurrenceMap).addOnCompleteListener(new OnCompleteListener()
@@ -319,17 +306,6 @@ public class CreateThread extends AppCompatActivity
                             {
                                 Toast.makeText(CreateThread.this, "Error", Toast.LENGTH_SHORT).show();
                             }
-                        }
-                    });
-
-
-                    /** Add a copy of the thread data under subnode "comments" to use single recycleradapter when displaying in discussion later */
-                    ThreadsRef.child(userID + postRandomID).child("comments").child(userID + postRandomID + "comment").updateChildren(occurrenceMap).addOnCompleteListener(new OnCompleteListener()
-                    {
-                        @Override
-                        public void onComplete(@NonNull Task task)
-                        {
-
                         }
                     });
 

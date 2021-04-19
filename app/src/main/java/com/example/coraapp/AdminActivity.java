@@ -2,30 +2,14 @@ package com.example.coraapp;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.EditText;
-import android.widget.ImageView;
-import android.widget.TextView;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
-import com.firebase.ui.database.FirebaseRecyclerAdapter;
-import com.firebase.ui.database.FirebaseRecyclerOptions;
-import com.firebase.ui.database.SnapshotParser;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 
 public class AdminActivity extends AppCompatActivity
 {
 
-    private EditText user_text;
     private Button ban_user, remove_forum, remove_occurence;
 
     @Override
@@ -47,12 +31,29 @@ public class AdminActivity extends AppCompatActivity
             }
 
         });
+
+        remove_occurence.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                SendUserToMainAdminActivity();
+            }
+
+        });
     }
 
-    //method that goes to post activity
+    //method that goes to all users activity
     private void SendUserToAllUsersActivity()
     {
         Intent newReportIntent = new Intent(AdminActivity.this, AllUsersActivity.class);
+        startActivity(newReportIntent);
+    }
+
+    //method that goes to main activity
+    private void SendUserToMainAdminActivity()
+    {
+        Intent newReportIntent = new Intent(AdminActivity.this, MainAdminActivity.class);
         startActivity(newReportIntent);
     }
 

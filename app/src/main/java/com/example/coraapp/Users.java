@@ -1,7 +1,7 @@
 package com.example.coraapp;
 
 
-//this class retrieves information for the recycle adapter in MainActivity function "DisplayAllPosts"
+//this class retrieves information for the recycle adapter in AllUsersActivity function "DisplayAllUsers"
 
 
 public class Users
@@ -15,13 +15,11 @@ public class Users
     }
 
 
-
     //constructors
     public Users(String fullName)
     {
         FullName = fullName;
     }
-
 
 
     //getters and setters

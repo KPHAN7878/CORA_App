@@ -2,7 +2,6 @@ package com.example.coraapp;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -22,6 +21,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
+import com.squareup.picasso.Picasso;
 
 public class Threads extends AppCompatActivity
 {
@@ -117,7 +117,6 @@ public class Threads extends AppCompatActivity
                                         snapshot.child("image").getValue().toString(),
                                         snapshot.child("description").getValue().toString(),
                                         snapshot.child("title").getValue().toString());
-                                        //snapshot.child("Uploader").getValue().toString();
                             }
                         })
 
@@ -139,8 +138,9 @@ public class Threads extends AppCompatActivity
             @Override
             protected void onBindViewHolder(Threads.ThreadsViewHolder holder, final int position, ThreadsModel model)
             {
-                /** get unique key for each thread display */
-                final String ThreadKey = getRef(position).getKey();
+                //get unique for each occurrence post
+                final String OccurrenceKey = getRef(position).getKey();
+
 
                 /** test for displaying no image */
 
@@ -153,21 +153,6 @@ public class Threads extends AppCompatActivity
                 /** test for displaying no image */
 
                 //holder.itemView
-
-                /** set on click listener on every thread display to gain access to discussion*/
-                holder.thread_cardview_id.setOnClickListener(new View.OnClickListener()
-                {
-                    @Override
-                    public void onClick(View v)
-                    {
-                        Intent goToDiscussion = new Intent(Threads.this, Discussion.class);
-                        //send unique thread key to next activity
-                        goToDiscussion.putExtra("ThreadKey", ThreadKey);
-                        goToDiscussion.putExtra("Topic", testString+"Threads");
-                        startActivity(goToDiscussion);
-                    }
-                });
-
             }
         };
 
@@ -182,8 +167,6 @@ public class Threads extends AppCompatActivity
     {
         TextView Username, Date, Title, Description;
 
-        CardView thread_cardview_id;
-
         //constructor
         public ThreadsViewHolder(@NonNull View itemView)
         {
@@ -193,8 +176,6 @@ public class Threads extends AppCompatActivity
             Date = itemView.findViewById(R.id.t_date);
             Title = itemView.findViewById(R.id.t_title);
             Description = itemView.findViewById(R.id.t_description);
-
-            thread_cardview_id = itemView.findViewById(R.id.t_cardview_id);
         }
 
     }

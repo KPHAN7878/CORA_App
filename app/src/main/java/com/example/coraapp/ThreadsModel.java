@@ -3,7 +3,6 @@ package com.example.coraapp;
 public class ThreadsModel
 {
     public String Username, UID, date, description, title;
-    public String Uploader;
     public String image = "";
 
 
@@ -12,7 +11,6 @@ public class ThreadsModel
 
     }
 
-    //public ThreadsModel(String username, String UID, String date, String image, String description, String title, String Uploader)
     public ThreadsModel(String username, String UID, String date, String image, String description, String title)
     {
         Username = username;
@@ -21,7 +19,6 @@ public class ThreadsModel
         this.image = image;
         this.description = description;
         this.title = title;
-        //this.Uploader = Uploader;
     }
 
     public String getUsername()
@@ -82,15 +79,4 @@ public class ThreadsModel
     {
         this.title = title;
     }
-
-    /**
-    public String getUploader()
-    {
-        return Uploader;
-    }
-    public void setUploader(String Uploader)
-    {
-        this.Uploader = Uploader;
-    }
-     */
 }

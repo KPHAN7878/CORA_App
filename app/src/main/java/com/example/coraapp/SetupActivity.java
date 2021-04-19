@@ -3,36 +3,29 @@ package com.example.coraapp;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.Context;
 import android.content.Intent;
-import android.location.Address;
-import android.location.Geocoder;
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
-import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
-import java.io.IOException;
 import java.util.HashMap;
-import java.util.List;
 
 public class SetupActivity extends AppCompatActivity
 {
     //test from original pc
     //test 2
 
-    private EditText username_Setup, fullname_Setup, address_Setup, city_Setup, zipcode_Setup;
+    private EditText username_Setup, fullname_Setup;
     private Button saveBtn_Setup;
     private ImageView profile_Setup;
 
@@ -40,10 +33,6 @@ public class SetupActivity extends AppCompatActivity
     private FirebaseAuth mAuth;
     private DatabaseReference UsersRef;
     String currentUserID;
-
-    //geocoder variable
-    private String latString;
-    private String langString;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -62,9 +51,6 @@ public class SetupActivity extends AppCompatActivity
         fullname_Setup = findViewById(R.id.fullname_Setup);
         saveBtn_Setup = findViewById(R.id.saveBtn_Setup);
         profile_Setup = findViewById(R.id.profile_Setup);
-        address_Setup = findViewById(R.id.address_Setup);
-        city_Setup = findViewById(R.id.city_Setup);
-        zipcode_Setup = findViewById(R.id.zipcode_Setup);
 
         saveBtn_Setup.setOnClickListener(new View.OnClickListener()
         {
@@ -81,44 +67,6 @@ public class SetupActivity extends AppCompatActivity
     {
         String username = username_Setup.getText().toString();
         String fullname = fullname_Setup.getText().toString();
-        String address = address_Setup.getText().toString();
-        String city = city_Setup.getText().toString();
-        String Zipcode = zipcode_Setup.getText().toString();
-
-        /** variable that saves latlng string form */
-        String latlngString;
-        String latlngStrArr[];
-
-
-
-
-        /** convert address string to lat lang coordinate */
-
-        Geocoder geocoder = new Geocoder(this);
-        List<Address> addy;
-        LatLng coordinate = null;
-
-        try
-        {
-            addy = geocoder.getFromLocationName(address, 5);
-
-            Address location = addy.get(0);
-            coordinate = new LatLng(location.getLatitude(), location.getLongitude());
-
-            latlngString = coordinate.toString();
-            latlngStrArr = latlngString.split(",");
-            latString = latlngStrArr[0];
-            langString = latlngStrArr[1];
-        }
-        catch (IOException ex)
-        {
-            Log.e("LocateMe", "Could not get geocoder data", ex);
-        }
-
-
-        /** convert address string to lat lang ends here */
-
-
 
         //check if fields are empty
         if(TextUtils.isEmpty(username))
@@ -135,15 +83,6 @@ public class SetupActivity extends AppCompatActivity
             HashMap userMap = new HashMap();
             userMap.put("Username", username);
             userMap.put("FullName", fullname);
-            userMap.put("Address", address);
-            userMap.put("City", city);
-            userMap.put("Zipcode", Zipcode);
-
-
-            userMap.put("Latitude", latString);
-            userMap.put("Longitude", langString);
-            userMap.put("coordinate", coordinate);
-
 
             //update in database
             UsersRef.updateChildren(userMap).addOnCompleteListener(new OnCompleteListener()

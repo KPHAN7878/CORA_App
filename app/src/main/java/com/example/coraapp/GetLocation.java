@@ -30,8 +30,6 @@ public class GetLocation extends AppCompatActivity implements View.OnClickListen
     /** variables to store coordinate */
     private String lat;
     private String lng;
-    private String zipcode;
-    private String city;
 
     //String api_key = "AIzaSyCxq53zuF4EKyVIi6XkBQIJJ62GOUf4ACU";
 
@@ -99,8 +97,6 @@ public class GetLocation extends AppCompatActivity implements View.OnClickListen
                     double currentLatitude = data.getDoubleExtra(MapUtility.LATITUDE, 0.0);
                     double currentLongitude = data.getDoubleExtra(MapUtility.LONGITUDE, 0.0);
                     Bundle completeAddress =data.getBundleExtra("fullAddress");
-
-
                     /* data in completeAddress bundle
                     "fulladdress"
                     "city"
@@ -116,7 +112,6 @@ public class GetLocation extends AppCompatActivity implements View.OnClickListen
                     lng = String.valueOf(currentLongitude);
 
 
-
                     txtAddress.setText(new StringBuilder().append("addressline2: ").append
                             (completeAddress.getString("addressline2")).append("\ncity: ").append
                             (completeAddress.getString("city")).append("\npostalcode: ").append
@@ -127,17 +122,10 @@ public class GetLocation extends AppCompatActivity implements View.OnClickListen
                             ("  Long:").append(currentLongitude).toString());
 
 
-                    //get zipcode
-                    zipcode = String.valueOf(new StringBuilder().append(completeAddress.getString("postalcode")));
-
-                    //get city
-                    city = String.valueOf(new StringBuilder().append(completeAddress.getString("city")));
 
                     Intent gotLocIntent = new Intent(GetLocation.this, PostActivity.class);
                     gotLocIntent.putExtra("lat", lat);
                     gotLocIntent.putExtra("lng", lng);
-                    gotLocIntent.putExtra("zip", zipcode);
-                    gotLocIntent.putExtra("city", city);
 
                     startActivity(gotLocIntent);
 

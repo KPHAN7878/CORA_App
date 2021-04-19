@@ -55,12 +55,21 @@
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
                     android:layout_marginLeft="5dp"
-                    android:padding="2dp"/>
+                    android:padding="2dp">
+
+                </LinearLayout>
 
             </LinearLayout>
 
 
         </LinearLayout>
+
+        <Button
+            android:id="@+id/delete_user"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Delete User" />
 
     </LinearLayout>
 
