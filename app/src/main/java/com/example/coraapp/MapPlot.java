@@ -4,7 +4,9 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.widget.Toast;
 
+import com.google.android.gms.location.LocationListener;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -49,16 +51,41 @@ public class MapPlot extends AppCompatActivity implements OnMapReadyCallback
             {
                 for(DataSnapshot ds: snapshot.getChildren())
                 {
-                    CrimeLocations dp = ds.getValue(CrimeLocations.class);
+                    CrimeLocations coord = ds.getValue(CrimeLocations.class);
 
                     //dp.getLatitude();
                     //dp.getLongitude();
 
-                    LatLng location = new LatLng(Double.parseDouble(dp.latitude),Double.parseDouble(dp.longitude));
+                    /**
+                    LatLng location = new LatLng(Double.parseDouble(coord.latitude),Double.parseDouble(coord.longitude));
+                    */
 
+                    try
+                    {
+                        String lat = coord.latitude;
+                        String lng = coord.longitude;
+
+                        double dlat = Double.parseDouble(lat);
+                        double dlang = Double.parseDouble(lng);
+
+                        mMap.addMarker(new MarkerOptions()
+                                .position(new LatLng(dlat,dlang))
+                                .title("new marker"));
+
+                        Toast.makeText(MapPlot.this, "lat: " + lat, Toast.LENGTH_SHORT).show();
+
+                    }
+                    catch (Exception e)
+                    {
+                        Toast.makeText(MapPlot.this, "could not get coordinates", Toast.LENGTH_SHORT).show();
+                    }
+
+                    /**
                     mMap.addMarker(new MarkerOptions()
                             .position(location)
                             .title("new marker"));
+
+                     */
 
                 }
             }

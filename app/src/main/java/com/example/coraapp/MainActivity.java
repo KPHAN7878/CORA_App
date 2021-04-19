@@ -282,6 +282,8 @@ public class MainActivity extends AppCompatActivity
     /** add later */
     private void SendUserToChartsActivity()
     {
+        Intent GoToCharts = new Intent(MainActivity.this, BarChartActivity.class);
+        startActivity(GoToCharts);
     }
 
 

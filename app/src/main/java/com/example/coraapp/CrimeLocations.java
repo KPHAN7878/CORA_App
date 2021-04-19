@@ -2,7 +2,7 @@ package com.example.coraapp;
 
 public class CrimeLocations
 {
-    String latitude, longitude;
+    public String latitude, longitude;
 
     public CrimeLocations()
     {
