@@ -263,7 +263,9 @@ public class MainActivity extends AppCompatActivity
                 Toast.makeText(this, "Account button clicked", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.nav_posts:
-                Toast.makeText(this, "Post button clicked", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(this, "Post button clicked", Toast.LENGTH_SHORT).show();
+                Intent GoToMyPosts = new Intent(MainActivity.this, MyPosts.class);
+                startActivity(GoToMyPosts);
                 break;
             /** added */
             case R.id.nav_map:
