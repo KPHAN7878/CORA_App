@@ -1,12 +1,5 @@
 package com.example.coraapp;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.ActionBarDrawerToggle;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.drawerlayout.widget.DrawerLayout;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -17,8 +10,15 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.Button;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBarDrawerToggle;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
@@ -31,7 +31,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.squareup.picasso.Picasso;
 
-public class MainActivity extends AppCompatActivity
+public class MainAdminActivity extends AppCompatActivity
 {
     private NavigationView navigationView;
     private DrawerLayout drawerLayout;
@@ -73,7 +73,7 @@ public class MainActivity extends AppCompatActivity
 
         /** nav bar stuff */
         drawerLayout = findViewById(R.id.draw_layout);
-        actionBarDrawerToggle = new ActionBarDrawerToggle(MainActivity.this, drawerLayout, R.string.drawer_open, R.string.drawer_close);
+        actionBarDrawerToggle = new ActionBarDrawerToggle(MainAdminActivity.this, drawerLayout, R.string.drawer_open, R.string.drawer_close);
         drawerLayout.addDrawerListener(actionBarDrawerToggle);
         actionBarDrawerToggle.syncState();
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -157,7 +157,7 @@ public class MainActivity extends AppCompatActivity
             public PostsViewHolder onCreateViewHolder(ViewGroup parent, int viewType)
             {
                 View view = LayoutInflater.from(parent.getContext())
-                        .inflate(R.layout.occurrence_post_layout, parent, false);
+                        .inflate(R.layout.occurrence_post_admin_layout, parent, false);
 
                 return new PostsViewHolder(view);
             }
@@ -168,7 +168,6 @@ public class MainActivity extends AppCompatActivity
             {
                 //get unique for each occurrence post
                 final String OccurrenceKey = getRef(position).getKey();
-
 
                 /** test for displaying no image */
 
@@ -188,18 +187,20 @@ public class MainActivity extends AppCompatActivity
         postList.setAdapter(adapter);
 
         adapter.startListening();
-        //
+
     }
 
-
-
-
+    public void removeFromDB(int position) {
+        adapter.getRef(position).removeValue();
+    }
 
     //static class for "FirebseRecyclerAdapter" in method "DisplayAllPosts"
-    public static class PostsViewHolder extends RecyclerView.ViewHolder
+    public class PostsViewHolder extends RecyclerView.ViewHolder
     {
         TextView usersName, Date, Title;
         ImageView Image;
+        Button remove_occurrence_from_db;
+
 
         //constructor
         public PostsViewHolder(@NonNull View itemView)
@@ -210,13 +211,21 @@ public class MainActivity extends AppCompatActivity
             Date = itemView.findViewById(R.id.post_date);
             Title = itemView.findViewById(R.id.post_title);
             Image = itemView.findViewById(R.id.post_image);
+            remove_occurrence_from_db = itemView.findViewById(R.id.remove_occurence_from_db);
+
+            remove_occurrence_from_db.setOnClickListener(new View.OnClickListener()
+            {
+                @Override
+                public void onClick(View itemView)
+                {
+                    if(itemView.equals(remove_occurrence_from_db)) {
+                        removeFromDB(getAdapterPosition());
+                    }
+                }
+            });
         }
 
     }
-
-
-
-
 
     //action bar hamburger toggle
     @Override
@@ -242,7 +251,7 @@ public class MainActivity extends AppCompatActivity
         {
             case R.id.nav_home:
                 Toast.makeText(this, "Home button clicked", Toast.LENGTH_SHORT).show();
-                Intent addCategory = new Intent(MainActivity.this, AddCategory.class);
+                Intent addCategory = new Intent(MainAdminActivity.this, AddCategory.class);
                 startActivity(addCategory);
                 break;
             case R.id.nav_create:
@@ -252,16 +261,14 @@ public class MainActivity extends AppCompatActivity
                 Toast.makeText(this, "Account button clicked", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.nav_posts:
-                //Toast.makeText(this, "Post button clicked", Toast.LENGTH_SHORT).show();
-                Intent GoToMyPosts = new Intent(MainActivity.this, MyPosts.class);
-                startActivity(GoToMyPosts);
+                Toast.makeText(this, "Post button clicked", Toast.LENGTH_SHORT).show();
                 break;
             /** added */
             case R.id.nav_map:
                 SendUserToMapActivity();
                 break;
             case R.id.nav_forums:
-                Intent ForumsIntent = new Intent(MainActivity.this, ForumsHome.class);
+                Intent ForumsIntent = new Intent(MainAdminActivity.this, ForumsHome.class);
                 startActivity(ForumsIntent);
                 break;
             /** added */
@@ -290,7 +297,7 @@ public class MainActivity extends AppCompatActivity
     /** add later */
     private void SendUserToMapActivity()
     {
-        Intent viewMapIntent = new Intent(MainActivity.this, MapPlot.class);
+        Intent viewMapIntent = new Intent(MainAdminActivity.this, MapPlot.class);
         startActivity(viewMapIntent);
     }
 
@@ -298,15 +305,24 @@ public class MainActivity extends AppCompatActivity
     //method that goes to post activity
     private void SendUserToPostActivity()
     {
-        Intent newReportIntent = new Intent(MainActivity.this, PostActivity.class);
+        Intent newReportIntent = new Intent(MainAdminActivity.this, PostActivity.class);
         startActivity(newReportIntent);
     }
 
     //Admin stuff
     private void SendUserToAdminActivity()
     {
-        Intent adminIntent = new Intent(MainActivity.this,AdminActivity.class);
+        Intent adminIntent = new Intent(MainAdminActivity.this,AdminActivity.class);
         startActivity(adminIntent);
+    }
+
+
+    private void SendUserToLoginActivity()
+    {
+        Intent loginIntent = new Intent(MainAdminActivity.this,LoginActivity.class);
+        loginIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(loginIntent);
+        finish();
     }
 
     private void CallNineOneOne()
@@ -314,86 +330,5 @@ public class MainActivity extends AppCompatActivity
         Intent callIntent = new Intent(Intent.ACTION_DIAL);
         callIntent.setData(Uri.parse("tel:"+911));//change the number
         startActivity(callIntent);
-    }
-
-    /* //------------------------------------------------------------------------------------------
-
-    //when app is opened make sure that the user is logged in
-    @Override
-    protected void onStart()
-    {
-        super.onStart();
-
-        FirebaseUser currentUser = mAuth.getCurrentUser();
-        
-        if(currentUser == null)
-        {
-            SendUserToLoginActivity();
-        }
-
-        //check if user exists in database
-        else
-        {
-            CheckUserExistence();
-        }
-    }
-
-    */ // ----------------------------------------------------------------------------------------
-
-
-    /* //------------------------------------------------------------------------------------------
-
-    //method that checks if user is in database
-    private void CheckUserExistence()
-    {
-        final String currentUserID = mAuth.getCurrentUser().getUid();
-
-        UsersRef.addValueEventListener(new ValueEventListener()
-        {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot)
-            {
-                //MIGHT NEED TO EDIT THIS LATER - TUTORIAL 12 BUG
-
-                //if user is authenticated (email and password) but is not in database yet (name, username, profile, etc)
-                //if this is the case send user to setup page
-                if(!snapshot.hasChild(currentUserID))
-                {
-                    SendUserToSetupActivity();
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error)
-            {
-
-            }
-        });
-    }
-
-    */ // ----------------------------------------------------------------------------------------
-
-    /* //------------------------------------------------------------------------------------------
-
-    //method that sends user to setup activity
-    private void SendUserToSetupActivity()
-    {
-        Intent setupIntent = new Intent(MainActivity.this,SetupActivity.class);
-        setupIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-        startActivity(setupIntent);
-        finish();
-    }
-
-    */ // ----------------------------------------------------------------------------------------
-
-
-    //login validation method
-    //if user is not logged in then redirect to login screen
-    private void SendUserToLoginActivity()
-    {
-        Intent loginIntent = new Intent(MainActivity.this,LoginActivity.class);
-        loginIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-        startActivity(loginIntent);
-        finish();
     }
 }
