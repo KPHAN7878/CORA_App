@@ -57,6 +57,9 @@
             android:value="@integer/google_play_services_version" />
 
         <activity android:name=".PostActivity" />
+        <activity android:name=".AdminActivity" />
+        <activity android:name=".MainAdminActivity" />
+        <activity android:name=".AllUsersActivity" />
         <activity android:name=".SetupActivity" />
         <activity android:name=".RegisterActivity" />
         <activity android:name=".LoginActivity">
