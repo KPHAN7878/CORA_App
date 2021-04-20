@@ -152,6 +152,7 @@ public class MainAdminActivity extends AppCompatActivity
 
                     //.setQuery(PostsRef, Posts.class)
                     .build();
+        //test
 
         adapter = new FirebaseRecyclerAdapter<Posts, PostsViewHolder>(options)
         {
