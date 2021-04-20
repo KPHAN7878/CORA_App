@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Threads">
+
+
+    <include
+        layout="@layout/toolbar_template"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true" />
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="58dp"
+        android:layout_marginBottom="65dp">
+        android:layout_alignParentTop="true"
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/discussion_recycler_id"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" >
+
+        </androidx.recyclerview.widget.RecyclerView>
+
+    </FrameLayout>
+
+    <EditText
+        android:id="@+id/comment_edittext_id"
+        android:layout_width="290dp"
+        android:layout_height="50dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="0dp"
+        android:layout_marginLeft="0dp"
+        android:layout_marginBottom="0dp"
+        android:background="#DCD9D6"
+        android:ems="10"
+        android:hint="comment"
+        android:inputType="textPersonName" />
+
+    <ImageButton
+        android:id="@+id/uploadpic_id"
+        android:layout_width="61dp"
+        android:layout_height="50dp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginEnd="60dp"
+        android:layout_marginRight="60dp"
+        android:layout_marginBottom="0dp"
+        android:background="#03A9F4"
+        app:srcCompat="@drawable/ic_baseline_add_circle_24" />
+
+    <ImageView
+        android:id="@+id/send_comment_id"
+        android:layout_width="60dp"
+        android:layout_height="50dp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginEnd="0dp"
+        android:layout_marginRight="0dp"
+        android:layout_marginBottom="0dp"
+        android:background="#673AB7"
+        app:srcCompat="@android:drawable/ic_menu_send" />
+
+</RelativeLayout>

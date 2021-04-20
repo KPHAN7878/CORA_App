@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/nav_home"
+        android:title="Home" />
+
+    <item
+        android:id="@+id/nav_create"
+        android:title="Create Post"/>
+
+    <item
+        android:id="@+id/nav_account"
+        android:title="My Account"/>
+
+    <item
+        android:id="@+id/nav_posts"
+        android:title="My Posts"/>
+
+    <item
+        android:id="@+id/nav_map"
+        android:title="View Map"/>
+
+    <item
+        android:id="@+id/nav_forums"
+        android:title="Forums"/>
+
+    <item
+        android:id="@+id/nav_charts"
+        android:title="View Chart"/>
+
+
+    <item
+        android:id="@+id/nav_logout"
+        android:title="Logout"/>
+    <item
+        android:id="@+id/nav_admin"
+        android:title="Admin" />
+    <item
+        android:id="@+id/nine_one_one"
+        android:title="CALL 911" />
+
+
+</menu>

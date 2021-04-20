@@ -1,3 +1,12 @@
 <resources>
     <string name="app_name">CORA App</string>
+    <string name="drawer_open">Drawer Open</string>
+    <string name="drawer_close">Drawer Close</string>
+    <string name="title_activity_get_location">Map</string>
+
+
+    <!--string resource for api key-->
+    <string name="your_api_key">AIzaSyCxq53zuF4EKyVIi6XkBQIJJ62GOUf4ACU</string>
+    <string name="title_activity_maps">Map</string>
+
 </resources>
