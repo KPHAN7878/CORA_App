@@ -15,7 +15,7 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="wrap_content">
 
             <de.hdodenhof.circleimageview.CircleImageView
 
@@ -61,7 +61,7 @@
             <TextView
                 android:id="@+id/disc_description"
                 android:layout_width="411dp"
-                android:layout_height="69dp"
+                android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
                 android:text="description"
                 app:layout_constraintStart_toStartOf="parent"

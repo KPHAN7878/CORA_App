@@ -144,7 +144,9 @@ public class MainActivity extends AppCompatActivity
                                              snapshot.child("UID").getValue().toString(),
                                              snapshot.child("date").getValue().toString(),
                                              snapshot.child("image").getValue().toString(),
-                                             snapshot.child("title").getValue().toString());
+                                             snapshot.child("title").getValue().toString(),
+                                             snapshot.child("description").getValue().toString(),
+                                             snapshot.child("category").getValue().toString());
                         }
                     })
 
@@ -176,10 +178,21 @@ public class MainActivity extends AppCompatActivity
                 holder.usersName.setText(model.getFullName());
                 holder.Date.setText(model.getDate());
                 holder.Title.setText(model.getTitle());
+                holder.Description.setText(model.getDescription());
+                holder.Category.setText(model.getCategory());
 
                 /** test for displaying no image */
 
-                Picasso.get().load(model.getImage()).into(holder.Image);
+                //Picasso.get().load(model.getImage()).into(holder.Image);
+
+                if(model.getImage().toString().equals("null"))
+                {
+                    holder.Image.setVisibility(View.GONE);
+                }
+                else
+                {
+                    Picasso.get().load(model.getImage()).into(holder.Image);
+                }
 
                 //holder.itemView
             }
@@ -198,7 +211,7 @@ public class MainActivity extends AppCompatActivity
     //static class for "FirebseRecyclerAdapter" in method "DisplayAllPosts"
     public static class PostsViewHolder extends RecyclerView.ViewHolder
     {
-        TextView usersName, Date, Title;
+        TextView usersName, Date, Title, Description, Category;
         ImageView Image;
 
         //constructor
@@ -210,6 +223,8 @@ public class MainActivity extends AppCompatActivity
             Date = itemView.findViewById(R.id.post_date);
             Title = itemView.findViewById(R.id.post_title);
             Image = itemView.findViewById(R.id.post_image);
+            Description = itemView.findViewById(R.id.home_description);
+            Category = itemView.findViewById(R.id.home_type);
         }
 
     }
