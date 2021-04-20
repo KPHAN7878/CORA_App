@@ -78,7 +78,9 @@ public class MainActivity extends AppCompatActivity
         actionBarDrawerToggle.syncState();
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         navigationView = findViewById(R.id.nav_view);
-        View navView = navigationView.inflateHeaderView(R.layout.navigation_header);
+
+        //test
+        /**View navView = navigationView.inflateHeaderView(R.layout.navigation_header);*/
 
 
         /*
