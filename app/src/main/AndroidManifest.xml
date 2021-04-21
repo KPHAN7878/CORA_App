@@ -24,7 +24,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.CORAApp">
-        <activity android:name=".MyAccount"></activity>
+        <activity android:name=".EditAccount"></activity>
+        <activity android:name=".MyAccount" />
         <activity android:name=".EditDeletePost" />
         <activity android:name=".MyPosts" />
         <activity android:name=".BarChartActivity" />

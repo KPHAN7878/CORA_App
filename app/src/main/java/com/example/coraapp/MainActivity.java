@@ -266,7 +266,8 @@ public class MainActivity extends AppCompatActivity
                 SendUserToPostActivity();
                 break;
             case R.id.nav_account:
-                Toast.makeText(this, "Account button clicked", Toast.LENGTH_SHORT).show();
+                Intent GoToMyAccount = new Intent(MainActivity.this, MyAccount.class);
+                startActivity(GoToMyAccount);
                 break;
             case R.id.nav_posts:
                 //Toast.makeText(this, "Post button clicked", Toast.LENGTH_SHORT).show();
