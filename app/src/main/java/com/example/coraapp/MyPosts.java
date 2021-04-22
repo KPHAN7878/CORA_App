@@ -6,10 +6,12 @@ import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -111,8 +113,8 @@ public class MyPosts extends AppCompatActivity
             @Override
             protected void onBindViewHolder(MyPosts.MyPostsViewHolder holder, final int position, MyPostsModel model)
             {
-                //get unique for each occurrence post
-                final String OccurrenceKey = getRef(position).getKey();
+                //get unique user's post when they click to edit
+                final String SelectedMyPost = getRef(position).getKey();
 
 
                 /** test for displaying no image */
@@ -133,6 +135,17 @@ public class MyPosts extends AppCompatActivity
                 holder.description_mypost.setText(model.getDescription());
                 holder.crimetype_mypost.setText(model.getCategory());
                 holder.date_mypost.setText(model.getDate());
+
+                holder.editPost_button.setOnClickListener(new View.OnClickListener()
+                {
+                    @Override
+                    public void onClick(View v)
+                    {
+                        Intent GoToIndividualPost = new Intent(MyPosts.this, EditOccurrencePost.class);
+                        GoToIndividualPost.putExtra("EditPostKey", SelectedMyPost);
+                        startActivity(GoToIndividualPost);
+                    }
+                });
             }
         };
 
@@ -153,6 +166,8 @@ public class MyPosts extends AppCompatActivity
 
         CardView myposts_cardview;
 
+        Button editPost_button, deletePost_button;
+
         //constructor
         public MyPostsViewHolder(@NonNull View itemView)
         {
@@ -164,6 +179,10 @@ public class MyPosts extends AppCompatActivity
             date_mypost = itemView.findViewById(R.id.date_mypost);
 
             myposts_cardview = itemView.findViewById(R.id.myposts_cardview);
+
+            editPost_button = itemView.findViewById(R.id.editPost_button);
+            deletePost_button = itemView.findViewById(R.id.deletePost_button);
+
         }
 
     }

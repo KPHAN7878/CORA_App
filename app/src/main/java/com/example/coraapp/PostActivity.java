@@ -318,6 +318,7 @@ public class PostActivity extends AppCompatActivity implements AdapterView.OnIte
 
         postRandomID = saveCurrentDate + saveCurrentTime;
 
+        //store image to firebase
         StorageReference filePath = ImageRef.child("occurrence image").child(imageUri.getLastPathSegment() + postRandomID + ".jpg");
 
         filePath.putFile(imageUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>()

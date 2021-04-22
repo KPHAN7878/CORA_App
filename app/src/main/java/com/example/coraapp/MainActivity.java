@@ -83,8 +83,14 @@ public class MainActivity extends AppCompatActivity
         actionBarDrawerToggle.syncState();
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         navigationView = findViewById(R.id.nav_view);
-        View navView = navigationView.inflateHeaderView(R.layout.navigation_header);
-        verifyBtn = findViewById(R.id.btn_Verify);
+//<<<<<<< master
+
+        //test
+        /**View navView = navigationView.inflateHeaderView(R.layout.navigation_header);*/
+//=======
+        //View navView = navigationView.inflateHeaderView(R.layout.navigation_header);
+        //verifyBtn = findViewById(R.id.btn_Verify);
+//>>>>>>> Branch4-20-Redone
 
 
         /*
@@ -290,8 +296,13 @@ public class MainActivity extends AppCompatActivity
                 SendUserToPostActivity();
                 break;
             case R.id.nav_account:
+//<<<<<<< master
+                Intent GoToMyAccount = new Intent(MainActivity.this, MyAccount.class);
+                startActivity(GoToMyAccount);
+//=======
                // Toast.makeText(this, "Account button clicked", Toast.LENGTH_SHORT).show();
-                sendUserUpdate();
+               // sendUserUpdate();
+//>>>>>>> Branch4-20-Redone
                 break;
             case R.id.nav_posts:
                 //Toast.makeText(this, "Post button clicked", Toast.LENGTH_SHORT).show();

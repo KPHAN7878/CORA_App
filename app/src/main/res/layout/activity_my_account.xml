@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    tools:context=".MyAccount">
+
+    <include
+        layout="@layout/toolbar_template"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true" />
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/account_profile"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+
+        android:src="@drawable/profile"
+        app:civ_border_color="@color/design_default_color_primary_dark"
+        app:civ_border_width="3dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.28">
+
+    </de.hdodenhof.circleimageview.CircleImageView>
+
+    <TextView
+        android:id="@+id/account_username"
+        android:layout_width="275dp"
+        android:layout_height="35dp"
+        android:layout_marginTop="36dp"
+        android:text="username"
+        android:gravity="center"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/account_profile" />
+
+    <TextView
+        android:id="@+id/account_fullname"
+        android:layout_width="275dp"
+        android:layout_height="35dp"
+        android:layout_marginTop="36dp"
+        android:text="full name"
+        android:gravity="center"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/account_username" />
+
+    <TextView
+        android:id="@+id/account_address"
+        android:layout_width="275dp"
+        android:layout_height="35dp"
+        android:layout_marginTop="36dp"
+        android:text="address"
+        android:gravity="center"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/account_fullname" />
+
+    <Button
+        android:id="@+id/account_edit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="36dp"
+        android:text="Edit "
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/account_address" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
