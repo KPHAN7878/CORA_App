@@ -14,6 +14,7 @@ import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -25,6 +26,7 @@ import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.firebase.ui.database.SnapshotParser;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -37,6 +39,7 @@ public class MainActivity extends AppCompatActivity
     private DrawerLayout drawerLayout;
     private ActionBarDrawerToggle actionBarDrawerToggle;
     private Toolbar mToolBar;
+    private Button verifyBtn;
 
     //recyclerview variables
     private RecyclerView postList;
@@ -44,6 +47,7 @@ public class MainActivity extends AppCompatActivity
 
 
     private FirebaseAuth mAuth;
+    private FirebaseUser mUser;
     private DatabaseReference UsersRef;
     //private DatabaseReference PostsRef;
     private Query PostsRef;
@@ -58,6 +62,7 @@ public class MainActivity extends AppCompatActivity
         setContentView(R.layout.activity_main);
 
         mAuth = FirebaseAuth.getInstance();
+        mUser = mAuth.getCurrentUser();
         UsersRef = FirebaseDatabase.getInstance().getReference().child("Users");
         //get reference to "Occurrence" node for recycleview method
 
@@ -78,9 +83,14 @@ public class MainActivity extends AppCompatActivity
         actionBarDrawerToggle.syncState();
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         navigationView = findViewById(R.id.nav_view);
+//<<<<<<< master
 
         //test
         /**View navView = navigationView.inflateHeaderView(R.layout.navigation_header);*/
+//=======
+        //View navView = navigationView.inflateHeaderView(R.layout.navigation_header);
+        //verifyBtn = findViewById(R.id.btn_Verify);
+//>>>>>>> Branch4-20-Redone
 
 
         /*
@@ -95,6 +105,7 @@ public class MainActivity extends AppCompatActivity
         linearLayoutManager.setReverseLayout(true);
         linearLayoutManager.setStackFromEnd(true);
         postList.setLayoutManager(linearLayoutManager);
+
 
         /*
         postList.setHasFixedSize(true);
@@ -118,12 +129,31 @@ public class MainActivity extends AppCompatActivity
         });
 
 
+        /*
+        Functionality for the verify email button
+        setOnClick CRASHES ON CREATE ATM
+        if(mUser.isEmailVerified())
+        {
+           verifyBtn.setVisibility(View.INVISIBLE);
+        }
+
+
+        verifyBtn.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                sendVerifyEmail();
+            }
+        });
+        */
+
         DisplayAllPosts();
-
-
     }
+
+
     //method that displays all posts
-    //using firebse recycle adapter
+    //using firebase recycle adapter
     private void DisplayAllPosts()
     {
         super.onStart();
@@ -266,8 +296,13 @@ public class MainActivity extends AppCompatActivity
                 SendUserToPostActivity();
                 break;
             case R.id.nav_account:
+//<<<<<<< master
                 Intent GoToMyAccount = new Intent(MainActivity.this, MyAccount.class);
                 startActivity(GoToMyAccount);
+//=======
+               // Toast.makeText(this, "Account button clicked", Toast.LENGTH_SHORT).show();
+               // sendUserUpdate();
+//>>>>>>> Branch4-20-Redone
                 break;
             case R.id.nav_posts:
                 //Toast.makeText(this, "Post button clicked", Toast.LENGTH_SHORT).show();
@@ -412,6 +447,20 @@ public class MainActivity extends AppCompatActivity
         Intent loginIntent = new Intent(MainActivity.this,LoginActivity.class);
         loginIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(loginIntent);
+        finish();
+    }
+
+    //Send the User the Verification Email
+    private void sendVerifyEmail()
+    {
+        mUser.sendEmailVerification();
+    }
+
+    //send user to update activity
+    private void sendUserUpdate()
+    {
+        Intent updateIntent = new Intent(MainActivity.this,UpdateProfile.class);
+        startActivity(updateIntent);
         finish();
     }
 }
