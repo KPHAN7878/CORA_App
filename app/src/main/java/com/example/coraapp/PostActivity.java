@@ -70,6 +70,7 @@ public class PostActivity extends AppCompatActivity implements AdapterView.OnIte
     //string that stores editText post info
     private String title;
     private String description;
+    private String profilePic;
 
 
     //firebase variables
@@ -280,6 +281,27 @@ public class PostActivity extends AppCompatActivity implements AdapterView.OnIte
                     String fullname = snapshot.child("FullName").getValue().toString();
                     storageURL = "null";
 
+                    //get profile pic
+                    UserRef.child(userID).addValueEventListener(new ValueEventListener()
+                    {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot snapshot)
+                        {
+                            if(snapshot.exists())
+                            {
+                                profilePic = snapshot.child("Profile").getValue().toString();
+                                HashMap occurrence_profile = new HashMap();
+                                occurrence_profile.put("ProfilePic", profilePic);
+                                OccurrenceRef.child(userID + postRandomID).updateChildren(occurrence_profile);
+                            }
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError error)
+                        {
+
+                        }
+                    });
 
                     //create new node in database for occurrence and store information
                     // -store userID
@@ -300,6 +322,7 @@ public class PostActivity extends AppCompatActivity implements AdapterView.OnIte
                     occurrenceMap.put("zipcode", zipcode);
                     occurrenceMap.put("city", city);
                     occurrenceMap.put("counter", post_counter);
+                    //occurrenceMap.put("ProfilePic", profilePic);
 
                     //add new occurrence reports to firebase under "Occurrence" node and assign unique ID for each post
                     OccurrenceRef.child(userID + postRandomID).updateChildren(occurrenceMap).addOnCompleteListener(new OnCompleteListener()
@@ -399,6 +422,28 @@ public class PostActivity extends AppCompatActivity implements AdapterView.OnIte
                                     String fullname = snapshot.child("FullName").getValue().toString();
 
 
+                                    //get profile pic
+                                    UserRef.child(userID).addValueEventListener(new ValueEventListener()
+                                    {
+                                        @Override
+                                        public void onDataChange(@NonNull DataSnapshot snapshot)
+                                        {
+                                            if(snapshot.exists())
+                                            {
+                                                profilePic = snapshot.child("Profile").getValue().toString();
+                                                HashMap occurrence_profile = new HashMap();
+                                                occurrence_profile.put("ProfilePic", profilePic);
+                                                OccurrenceRef.child(userID + postRandomID).updateChildren(occurrence_profile);
+                                            }
+                                        }
+
+                                        @Override
+                                        public void onCancelled(@NonNull DatabaseError error)
+                                        {
+
+                                        }
+                                    });
+
 
                                     //create new node in database for occurrence and store information
                                     // -store userID
@@ -454,20 +499,10 @@ public class PostActivity extends AppCompatActivity implements AdapterView.OnIte
                     }
                 });
 
-
-                //ReportInfoToDatabase();
             }
         });
     }
 
-
-    /*
-    //method to send occurrence information to database
-    private void ReportInfoToDatabase()
-    {
-
-    }
-    */
 
     //method to redirect user back to main activity after reporting occurrence
     private void SendUserToMainActivity()

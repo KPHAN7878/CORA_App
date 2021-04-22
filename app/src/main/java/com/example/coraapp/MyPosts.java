@@ -136,6 +136,7 @@ public class MyPosts extends AppCompatActivity
                 holder.crimetype_mypost.setText(model.getCategory());
                 holder.date_mypost.setText(model.getDate());
 
+                //edit button
                 holder.editPost_button.setOnClickListener(new View.OnClickListener()
                 {
                     @Override
@@ -146,6 +147,18 @@ public class MyPosts extends AppCompatActivity
                         startActivity(GoToIndividualPost);
                     }
                 });
+
+                //delete button
+                holder.deletePost_button.setOnClickListener(new View.OnClickListener()
+                {
+                    @Override
+                    public void onClick(View v)
+                    {
+                        mpRef.child(SelectedMyPost).removeValue();
+                    }
+                });
+
+
             }
         };
 

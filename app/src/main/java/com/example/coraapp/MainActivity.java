@@ -31,6 +31,8 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.squareup.picasso.Picasso;
 
+import de.hdodenhof.circleimageview.CircleImageView;
+
 public class MainActivity extends AppCompatActivity
 {
     private NavigationView navigationView;
@@ -150,7 +152,8 @@ public class MainActivity extends AppCompatActivity
                                              snapshot.child("image").getValue().toString(),
                                              snapshot.child("title").getValue().toString(),
                                              snapshot.child("description").getValue().toString(),
-                                             snapshot.child("category").getValue().toString());
+                                             snapshot.child("category").getValue().toString(),
+                                             snapshot.child("ProfilePic").getValue().toString());
                         }
                     })
 
@@ -198,6 +201,8 @@ public class MainActivity extends AppCompatActivity
                     Picasso.get().load(model.getImage()).into(holder.Image);
                 }
 
+                Picasso.get().load(model.getProfile()).fit().centerCrop().into(holder.occurrence_profile);
+
                 //holder.itemView
             }
         };
@@ -220,6 +225,7 @@ public class MainActivity extends AppCompatActivity
     {
         TextView usersName, Date, Title, Description, Category;
         ImageView Image;
+        CircleImageView occurrence_profile;
 
         //constructor
         public PostsViewHolder(@NonNull View itemView)
@@ -232,6 +238,7 @@ public class MainActivity extends AppCompatActivity
             Image = itemView.findViewById(R.id.post_image);
             Description = itemView.findViewById(R.id.home_description);
             Category = itemView.findViewById(R.id.home_type);
+            occurrence_profile = itemView.findViewById(R.id.occurrence_profile);
         }
 
     }

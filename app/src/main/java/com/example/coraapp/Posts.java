@@ -6,7 +6,7 @@ package com.example.coraapp;
 
 public class Posts
 {
-    public String FullName, UID, date, title, description, category;
+    public String FullName, UID, date, title, description, category, ProfilePic;
 
     /** testing "" for image not present */
     public String  image = "";
@@ -22,7 +22,7 @@ public class Posts
 
 
     //constructors
-    public Posts(String fullName, String UID, String date, String image, String title, String description, String category)
+    public Posts(String fullName, String UID, String date, String image, String title, String description, String category, String ProfilePic)
     {
         FullName = fullName;
         this.UID = UID;
@@ -31,6 +31,7 @@ public class Posts
         this.title = title;
         this.description = description;
         this.category = category;
+        this.ProfilePic = ProfilePic;
     }
 
 
@@ -104,5 +105,15 @@ public class Posts
     public void setCategory(String category)
     {
         this.category = category;
+    }
+
+    public String getProfile()
+    {
+        return ProfilePic;
+    }
+
+    public void setProfile(String category)
+    {
+        this.ProfilePic = ProfilePic;
     }
 }
