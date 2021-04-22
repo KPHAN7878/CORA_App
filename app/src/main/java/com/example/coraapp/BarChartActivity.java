@@ -6,9 +6,11 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 
 import com.github.mikephil.charting.charts.BarChart;
+import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
+import com.github.mikephil.charting.formatter.IndexAxisValueFormatter;
 import com.github.mikephil.charting.utils.ColorTemplate;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -46,7 +48,7 @@ public class BarChartActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_bar_chart);
 
-         barchart = (BarChart) findViewById(R.id.barchart_id);
+        barchart = (BarChart) findViewById(R.id.barchart_id);
 
         /** crime cateogry array list */
         ArrayList CrimeType = new ArrayList();
@@ -96,11 +98,28 @@ public class BarChartActivity extends AppCompatActivity
 
                 BarEntryLabels = new ArrayList<String>();
 
+                /**
                 BARENTRY.add(new BarEntry(AssaultCount, 0));
                 BARENTRY.add(new BarEntry(TheftCount, 1));
                 BARENTRY.add(new BarEntry(BurglaryCount, 2));
                 BARENTRY.add(new BarEntry(SuspiciousCount, 3));
                 BARENTRY.add(new BarEntry(MurderCount, 4));
+                */
+
+                BARENTRY.add(new BarEntry(0, AssaultCount));
+                BARENTRY.add(new BarEntry(1, TheftCount));
+                BARENTRY.add(new BarEntry(2, BurglaryCount));
+                BARENTRY.add(new BarEntry(3, SuspiciousCount));
+                BARENTRY.add(new BarEntry(4, MurderCount));
+
+                final String[] lb = new String[] {"Assault", "Theft", "Burglar", "Suspicious", "Murder"};
+                XAxis xAxis = barchart.getXAxis();
+                xAxis.setLabelCount(5);
+
+                xAxis.setValueFormatter(new IndexAxisValueFormatter(lb));
+                //xAxis.setGranularity(0.6f);
+                //xAxis.setGranularityEnabled(true);
+
 
                 BarEntryLabels.add("Assault");
                 BarEntryLabels.add("Theft");
@@ -109,10 +128,16 @@ public class BarChartActivity extends AppCompatActivity
                 BarEntryLabels.add("Murder");
 
                 Bardataset = new BarDataSet(BARENTRY, "Projects");
-                BARDATA = new BarData(BarEntryLabels, Bardataset);
+                BARDATA = new BarData(Bardataset);
+                BARDATA.setBarWidth(0.6f);
+
                 Bardataset.setColors(ColorTemplate.COLORFUL_COLORS);
 
                 barchart.setData(BARDATA);
+                barchart.getAxisLeft().setDrawGridLines(false);
+                barchart.getXAxis().setDrawGridLines(false);
+                barchart.getAxisRight().setDrawGridLines(false);
+
                 barchart.animateY(3000);
             }
 

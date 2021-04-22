@@ -88,7 +88,8 @@ public class MainActivity extends AppCompatActivity
         postList = findViewById(R.id.all_users_post_list);
         postList.setLayoutManager(new LinearLayoutManager(this));
         */
-        
+
+        /** recyclerview adapter initialize */
         postList = (RecyclerView) findViewById(R.id.all_users_post_list);
         postList.setHasFixedSize(true);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
@@ -128,7 +129,8 @@ public class MainActivity extends AppCompatActivity
     {
         super.onStart();
 
-        PostsRef = FirebaseDatabase.getInstance().getReference().child("Occurrence");
+        //PostsRef = FirebaseDatabase.getInstance().getReference().child("Occurrence");
+        PostsRef = FirebaseDatabase.getInstance().getReference().child("Occurrence").orderByChild("counter");
 
         FirebaseRecyclerOptions<Posts> options =
                 new FirebaseRecyclerOptions.Builder<Posts>()
@@ -302,6 +304,8 @@ public class MainActivity extends AppCompatActivity
     /** add later */
     private void SendUserToChartsActivity()
     {
+        Intent GoToBarChart = new Intent(MainActivity.this, BarChartActivity.class);
+        startActivity(GoToBarChart);
     }
 
 

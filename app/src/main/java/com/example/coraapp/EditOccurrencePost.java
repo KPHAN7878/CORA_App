@@ -4,6 +4,9 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -16,7 +19,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.StorageReference;
 
-public class EditOccurrencePost extends AppCompatActivity
+public class EditOccurrencePost extends AppCompatActivity implements AdapterView.OnItemSelectedListener
 {
 
     private ImageView post_edit_image;
@@ -30,6 +33,11 @@ public class EditOccurrencePost extends AppCompatActivity
     //firebase variables
     private StorageReference ImageRef;
     private DatabaseReference ThisOccurrenceRef;
+
+    /** spinner array */
+    private String[] category = {"Category", "Theft", "Burglary", "Assault", "Murder", "Suspicious Activity"};
+    private String crime = "";
+    private String current_cateogry;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -48,6 +56,7 @@ public class EditOccurrencePost extends AppCompatActivity
         post_edit_description = findViewById(R.id.post_edit_description);
         category_edit_spinner = findViewById(R.id.category_edit_spinner);
 
+
         //
         ThisOccurrenceRef.addValueEventListener(new ValueEventListener()
         {
@@ -59,6 +68,14 @@ public class EditOccurrencePost extends AppCompatActivity
                     String edit_title = snapshot.child("title").getValue().toString();
                     String edit_description = snapshot.child("description").getValue().toString();
                     String edit_category = snapshot.child("category").getValue().toString();
+                    String edit_image = snapshot.child("image").getValue().toString();
+
+                    current_cateogry = edit_category;
+
+
+                    post_edit_title.setText(edit_title);
+                    post_edit_description.setText(edit_description);
+                    post_edit_title.setText(edit_title);
                 }
             }
 
@@ -69,8 +86,38 @@ public class EditOccurrencePost extends AppCompatActivity
             }
         });
 
+        //initialize spinner with category string array
+        category_edit_spinner = findViewById(R.id.category_edit_spinner);
+        category_edit_spinner.setOnItemSelectedListener(this);
+        ArrayAdapter adapter = new ArrayAdapter(this, android.R.layout.simple_spinner_item, category);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        category_edit_spinner.setAdapter(adapter);
+        category_edit_spinner.setPrompt(current_cateogry);
 
 
+
+
+
+
+    }
+
+
+
+
+
+    //1. method 1 for spinner
+    @Override
+    public void onItemSelected(AdapterView<?> parent, View view, int position, long id)
+    {
+
+        crime = category[position];
+
+    }
+
+    //2. method 2 for spinner
+    @Override
+    public void onNothingSelected(AdapterView<?> parent)
+    {
 
     }
 }

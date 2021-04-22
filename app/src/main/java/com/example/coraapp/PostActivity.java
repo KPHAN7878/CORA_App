@@ -86,6 +86,9 @@ public class PostActivity extends AppCompatActivity implements AdapterView.OnIte
 
     private Button test_btn;
 
+    //post counter for sorting
+    private long post_counter = 0;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -231,6 +234,30 @@ public class PostActivity extends AppCompatActivity implements AdapterView.OnIte
     //if the user does not submit an image
     private void NoImageToFirebase()
     {
+        //create post counter
+        OccurrenceRef.addValueEventListener(new ValueEventListener()
+        {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot)
+            {
+                if(snapshot.exists())
+                {
+                    post_counter = snapshot.getChildrenCount();
+                }
+                else
+                {
+                    post_counter = 0;
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error)
+            {
+
+            }
+        });
+
+
         Calendar obtainDate = Calendar.getInstance();
         SimpleDateFormat currentDate = new SimpleDateFormat("dd-MMMM-yyyy");
         saveCurrentDate = currentDate.format(obtainDate.getTime());
@@ -272,6 +299,7 @@ public class PostActivity extends AppCompatActivity implements AdapterView.OnIte
                     occurrenceMap.put("longitude", lng);
                     occurrenceMap.put("zipcode", zipcode);
                     occurrenceMap.put("city", city);
+                    occurrenceMap.put("counter", post_counter);
 
                     //add new occurrence reports to firebase under "Occurrence" node and assign unique ID for each post
                     OccurrenceRef.child(userID + postRandomID).updateChildren(occurrenceMap).addOnCompleteListener(new OnCompleteListener()
@@ -308,6 +336,30 @@ public class PostActivity extends AppCompatActivity implements AdapterView.OnIte
     //if user chooses to upload image
     private void StoreImageToFirebaseStorage()
     {
+
+        //create post counter
+        OccurrenceRef.addValueEventListener(new ValueEventListener()
+        {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot)
+            {
+                if(snapshot.exists())
+                {
+                    post_counter = snapshot.getChildrenCount();
+                }
+                else
+                {
+                    post_counter = 0;
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error)
+            {
+
+            }
+        });
+
         Calendar obtainDate = Calendar.getInstance();
         SimpleDateFormat currentDate = new SimpleDateFormat("dd-MMMM-yyyy");
         saveCurrentDate = currentDate.format(obtainDate.getTime());
@@ -366,6 +418,7 @@ public class PostActivity extends AppCompatActivity implements AdapterView.OnIte
                                     occurrenceMap.put("longitude", lng);
                                     occurrenceMap.put("zipcode", zipcode);
                                     occurrenceMap.put("city", city);
+                                    occurrenceMap.put("counter", post_counter);
 
                                     //add new occurrence reports to firebase under "Occurrence" node and assign unique ID for each post
                                     OccurrenceRef.child(userID + postRandomID).updateChildren(occurrenceMap).addOnCompleteListener(new OnCompleteListener()
