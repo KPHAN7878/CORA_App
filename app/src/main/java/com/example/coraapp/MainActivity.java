@@ -205,6 +205,9 @@ public class MainActivity extends AppCompatActivity
         postList.setAdapter(adapter);
 
         adapter.startListening();
+
+        //added test
+        adapter.notifyDataSetChanged();
         //
     }
 
