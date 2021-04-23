@@ -67,6 +67,7 @@ public class MapPlot extends AppCompatActivity implements OnMapReadyCallback
 
 
         /** if the filter button is clicked in the toolbar */
+        /**
         filter_button.setOnClickListener(new View.OnClickListener()
         {
             @Override
@@ -80,6 +81,7 @@ public class MapPlot extends AppCompatActivity implements OnMapReadyCallback
                 startActivity(GoToMapFilter);
             }
         });
+        */
 
 
         /** map stuff */
