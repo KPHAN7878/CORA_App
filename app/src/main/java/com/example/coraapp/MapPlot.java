@@ -6,8 +6,11 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
+import android.location.Address;
+import android.location.Geocoder;
 import android.location.Location;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
@@ -23,13 +26,17 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Locale;
 
 public class MapPlot extends AppCompatActivity implements OnMapReadyCallback
 {
@@ -45,6 +52,8 @@ public class MapPlot extends AppCompatActivity implements OnMapReadyCallback
 
     private ImageView filter_button;
 
+    Geocoder geocoder;
+
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
@@ -54,6 +63,7 @@ public class MapPlot extends AppCompatActivity implements OnMapReadyCallback
         /** not sure if correct */
         filter_button = findViewById(R.id.post_button);
 
+        geocoder = new Geocoder(this);
 
 
         /** if the filter button is clicked in the toolbar */
@@ -131,7 +141,7 @@ public class MapPlot extends AppCompatActivity implements OnMapReadyCallback
                                 if(CrimeCategory.equals("Theft"))
                                 {
                                     /** customize markers */
-                                    BitmapDrawable Theftbitmap = (BitmapDrawable) getResources().getDrawable(R.drawable.burglar);
+                                    BitmapDrawable Theftbitmap = (BitmapDrawable) getResources().getDrawable(R.drawable.theft2);
                                     Bitmap bitmap = Theftbitmap.getBitmap();
                                     Bitmap marker = Bitmap.createScaledBitmap(bitmap, 100, 100,false);
                                     mMap.addMarker(new MarkerOptions()
@@ -152,7 +162,7 @@ public class MapPlot extends AppCompatActivity implements OnMapReadyCallback
                                 else if(CrimeCategory.equals("Assault"))
                                 {
                                     /** customize markers */
-                                    BitmapDrawable Assaultbitmap = (BitmapDrawable) getResources().getDrawable(R.drawable.assault);
+                                    BitmapDrawable Assaultbitmap = (BitmapDrawable) getResources().getDrawable(R.drawable.attack);
                                     Bitmap bitmap = Assaultbitmap.getBitmap();
                                     Bitmap marker = Bitmap.createScaledBitmap(bitmap, 100, 100,false);
 
@@ -222,15 +232,52 @@ public class MapPlot extends AppCompatActivity implements OnMapReadyCallback
             });
 
 
-        final Double[] latitude = {7.023};
-        final Double[] longitude = {79.89};
+        //set map focus on user's address
+        String userID;
+        FirebaseAuth mAuth = FirebaseAuth.getInstance();
+        userID = mAuth.getCurrentUser().getUid();
+        DatabaseReference UserRef = FirebaseDatabase.getInstance().getReference().child("Users").child(userID);
 
-        LatLng sydney = new LatLng(-34, 151);
-        mMap.addMarker(new MarkerOptions()
-                .position(sydney)
-                .title("Marker in Sydney"));
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
+        UserRef.addValueEventListener(new ValueEventListener()
+        {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot)
+            {
+                if(snapshot.exists())
+                {
+                    String address = snapshot.child("Address").getValue().toString();
 
+                    //Geocoder geocoder = new Geocoder(this);
+                    List<Address> addy;
+                    LatLng coordinate = null;
+
+
+                    try
+                    {
+                        addy = geocoder.getFromLocationName(address, 5);
+
+                        Address location = addy.get(0);
+                        coordinate = new LatLng(location.getLatitude(), location.getLongitude());
+
+                        mMap.addMarker(new MarkerOptions()
+                                .position(coordinate)
+                                .title("Home"));
+                        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(coordinate, 12f));
+
+                    }
+                    catch (IOException ex)
+                    {
+                        Log.e("LocateMe", "Could not get geocoder data", ex);
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error)
+            {
+
+            }
+        });
 
     }
 }
