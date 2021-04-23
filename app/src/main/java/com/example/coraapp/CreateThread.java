@@ -64,6 +64,10 @@ public class CreateThread extends AppCompatActivity
     /**variable to getExtra from previous*/
     private String TopicString;
 
+
+    //post counter for sorting
+    private long post_counter = 0;
+
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
@@ -153,6 +157,30 @@ public class CreateThread extends AppCompatActivity
 
     private void StoreImageToFirebaseStorage()
     {
+
+        //create post counter
+        ThreadsRef.addValueEventListener(new ValueEventListener()
+        {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot)
+            {
+                if(snapshot.exists())
+                {
+                    post_counter = snapshot.getChildrenCount();
+                }
+                else
+                {
+                    post_counter = 0;
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error)
+            {
+
+            }
+        });
+
         Calendar obtainDate = Calendar.getInstance();
         SimpleDateFormat currentDate = new SimpleDateFormat("dd-MMMM-yyyy");
         saveCurrentDate = currentDate.format(obtainDate.getTime());
@@ -233,6 +261,7 @@ public class CreateThread extends AppCompatActivity
                                     occurrenceMap.put("FullName", fullname);
                                     occurrenceMap.put("Username", username);
                                     occurrenceMap.put("Uploader", "yes");
+                                    occurrenceMap.put("counter", post_counter);
 
                                     //add new threads to firebase under respective thread category node and assign unique ID for each post
                                     ThreadsRef.child(userID + postRandomID).updateChildren(occurrenceMap).addOnCompleteListener(new OnCompleteListener()
@@ -289,6 +318,31 @@ public class CreateThread extends AppCompatActivity
     //if the user does nsot submit an image
     private void NoImageToFirebase()
     {
+
+        //create post counter
+        ThreadsRef.addValueEventListener(new ValueEventListener()
+        {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot)
+            {
+                if(snapshot.exists())
+                {
+                    post_counter = snapshot.getChildrenCount();
+                }
+                else
+                {
+                    post_counter = 0;
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error)
+            {
+
+            }
+        });
+
+
         Calendar obtainDate = Calendar.getInstance();
         android.icu.text.SimpleDateFormat currentDate = new android.icu.text.SimpleDateFormat("dd-MMMM-yyyy");
         saveCurrentDate = currentDate.format(obtainDate.getTime());
@@ -354,6 +408,7 @@ public class CreateThread extends AppCompatActivity
                     occurrenceMap.put("FullName", fullname);
                     occurrenceMap.put("Username", username);
                     occurrenceMap.put("Uploader", "yes");
+                    occurrenceMap.put("counter", post_counter);
 
                     //add new occurrence reports to firebase under "Occurrence" node and assign unique ID for each post
                     ThreadsRef.child(userID + postRandomID).updateChildren(occurrenceMap).addOnCompleteListener(new OnCompleteListener()

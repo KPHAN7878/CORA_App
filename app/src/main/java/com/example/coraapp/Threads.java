@@ -100,7 +100,7 @@ public class Threads extends AppCompatActivity
     {
         super.onStart();
 
-        ThreadsRef = FirebaseDatabase.getInstance().getReference().child(testString + "Threads");
+        ThreadsRef = FirebaseDatabase.getInstance().getReference().child(testString + "Threads").orderByChild("counter");
 
         FirebaseRecyclerOptions<ThreadsModel> options =
                 new FirebaseRecyclerOptions.Builder<ThreadsModel>()

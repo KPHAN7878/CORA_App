@@ -82,7 +82,7 @@ public class BarChartActivity extends AppCompatActivity
                     {
                         BurglaryCount += 1;
                     }
-                    if(OccurrenceType.equals("Suspicious Activity"))
+                    if(OccurrenceType.equals("Other"))
                     {
                         SuspiciousCount += 1;
                     }
@@ -112,7 +112,7 @@ public class BarChartActivity extends AppCompatActivity
                 BARENTRY.add(new BarEntry(3, SuspiciousCount));
                 BARENTRY.add(new BarEntry(4, MurderCount));
 
-                final String[] lb = new String[] {"Assault", "Theft", "Burglar", "Suspicious", "Murder"};
+                final String[] lb = new String[] {"Assault", "Theft", "Burglar", "Other", "Murder"};
                 XAxis xAxis = barchart.getXAxis();
                 xAxis.setLabelCount(5);
 
@@ -124,7 +124,7 @@ public class BarChartActivity extends AppCompatActivity
                 BarEntryLabels.add("Assault");
                 BarEntryLabels.add("Theft");
                 BarEntryLabels.add("Burglary");
-                BarEntryLabels.add("Suspicious");
+                BarEntryLabels.add("Other");
                 BarEntryLabels.add("Murder");
 
                 Bardataset = new BarDataSet(BARENTRY, "Projects");

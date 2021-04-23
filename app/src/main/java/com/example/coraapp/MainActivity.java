@@ -153,7 +153,8 @@ public class MainActivity extends AppCompatActivity
                                              snapshot.child("title").getValue().toString(),
                                              snapshot.child("description").getValue().toString(),
                                              snapshot.child("category").getValue().toString(),
-                                             snapshot.child("ProfilePic").getValue().toString());
+                                             snapshot.child("ProfilePic").getValue().toString(),
+                                             snapshot.child("Username").getValue().toString());
                         }
                     })
 
@@ -182,7 +183,7 @@ public class MainActivity extends AppCompatActivity
                 /** test for displaying no image */
 
 
-                holder.usersName.setText(model.getFullName());
+                holder.usersName.setText(model.getUsername());
                 holder.Date.setText(model.getDate());
                 holder.Title.setText(model.getTitle());
                 holder.Description.setText(model.getDescription());
@@ -314,8 +315,8 @@ public class MainActivity extends AppCompatActivity
     /** add later */
     private void SendUserToChartsActivity()
     {
-        Intent GoToBarChart = new Intent(MainActivity.this, BarChartActivity.class);
-        startActivity(GoToBarChart);
+        Intent GoToChooseChart = new Intent(MainActivity.this, ChooseChart.class);
+        startActivity(GoToChooseChart);
     }
 
 

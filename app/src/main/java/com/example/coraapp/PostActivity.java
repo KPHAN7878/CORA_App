@@ -60,7 +60,7 @@ public class PostActivity extends AppCompatActivity implements AdapterView.OnIte
     String city;
 
     /** spinner array */
-    String[] category = {"Category", "Theft", "Burglary", "Assault", "Murder", "Suspicious Activity"};
+    String[] category = {"Category", "Theft", "Burglary", "Assault", "Murder", "Other"};
     private String crime = "";
 
 
@@ -279,6 +279,7 @@ public class PostActivity extends AppCompatActivity implements AdapterView.OnIte
                 if(snapshot.exists())
                 {
                     String fullname = snapshot.child("FullName").getValue().toString();
+                    String USERNAME = snapshot.child("Username").getValue().toString();
                     storageURL = "null";
 
                     //get profile pic
@@ -317,6 +318,7 @@ public class PostActivity extends AppCompatActivity implements AdapterView.OnIte
                     occurrenceMap.put("image", storageURL);
                     occurrenceMap.put("category", crime);
                     occurrenceMap.put("FullName", fullname);
+                    occurrenceMap.put("Username", USERNAME);
                     occurrenceMap.put("latitude", lat);
                     occurrenceMap.put("longitude", lng);
                     occurrenceMap.put("zipcode", zipcode);
@@ -420,6 +422,7 @@ public class PostActivity extends AppCompatActivity implements AdapterView.OnIte
                                 if(snapshot.exists())
                                 {
                                     String fullname = snapshot.child("FullName").getValue().toString();
+                                    String USERNAME = snapshot.child("Username").getValue().toString();
 
 
                                     //get profile pic
@@ -459,6 +462,7 @@ public class PostActivity extends AppCompatActivity implements AdapterView.OnIte
                                     occurrenceMap.put("image", storageURL);
                                     occurrenceMap.put("category", crime);
                                     occurrenceMap.put("FullName", fullname);
+                                    occurrenceMap.put("Username", USERNAME);
                                     occurrenceMap.put("latitude", lat);
                                     occurrenceMap.put("longitude", lng);
                                     occurrenceMap.put("zipcode", zipcode);

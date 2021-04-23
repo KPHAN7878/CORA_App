@@ -181,7 +181,7 @@ public class MapPlot extends AppCompatActivity implements OnMapReadyCallback
                                             .position(new LatLng(dlat, dlang))
                                             .title("Murder")).setIcon(BitmapDescriptorFactory.fromBitmap(marker));;
                                 }
-                                else if(CrimeCategory.equals("Suspicious Activity"))
+                                else if(CrimeCategory.equals("Other"))
                                 {
                                     /** customize markers */
                                     BitmapDrawable Theftbitmap = (BitmapDrawable) getResources().getDrawable(R.drawable.suspicious);
@@ -190,7 +190,7 @@ public class MapPlot extends AppCompatActivity implements OnMapReadyCallback
 
                                     mMap.addMarker(new MarkerOptions()
                                             .position(new LatLng(dlat, dlang))
-                                            .title("Suspicious")).setIcon(BitmapDescriptorFactory.fromBitmap(marker));;
+                                            .title("Other")).setIcon(BitmapDescriptorFactory.fromBitmap(marker));;
                                 }
                             }
 

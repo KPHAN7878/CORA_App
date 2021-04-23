@@ -147,7 +147,8 @@ public class MainAdminActivity extends AppCompatActivity
                                              snapshot.child("title").getValue().toString(),
                                              snapshot.child("description").getValue().toString(),
                                              snapshot.child("category").getValue().toString(),
-                                             snapshot.child("ProfilePic").getValue().toString());
+                                             snapshot.child("ProfilePic").getValue().toString(),
+                                             snapshot.child("Username").getValue().toString());
                         }
                     })
 

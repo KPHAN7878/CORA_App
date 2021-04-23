@@ -11,6 +11,7 @@ import android.content.Intent;
 import android.icu.text.SimpleDateFormat;
 import android.net.Uri;
 import android.os.Bundle;
+import android.provider.ContactsContract;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -81,6 +82,9 @@ public class Discussion extends AppCompatActivity
     Boolean LikeFlag = false;
     Boolean DislikeFlag = false;
 
+
+    //post counter for sorting
+    private long post_counter = 0;
 
 
     @Override
@@ -206,6 +210,30 @@ public class Discussion extends AppCompatActivity
     //function to send comment data with image to firebase
     private void CommentWithImage()
     {
+
+        //create post counter
+        ThreadsRef.child(getThreadString).child("comments").addValueEventListener(new ValueEventListener()
+        {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot)
+            {
+                if(snapshot.exists())
+                {
+                    post_counter = snapshot.getChildrenCount();
+                }
+                else
+                {
+                    post_counter = 0;
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error)
+            {
+
+            }
+        });
+
         Calendar obtainDate = Calendar.getInstance();
         SimpleDateFormat currentDate = new SimpleDateFormat("dd-MMMM-yyyy");
         saveCurrentDate = currentDate.format(obtainDate.getTime());
@@ -283,6 +311,7 @@ public class Discussion extends AppCompatActivity
                                     occurrenceMap.put("FullName", fullname);
                                     occurrenceMap.put("Username", username);
                                     occurrenceMap.put("Uploader", "no");
+                                    occurrenceMap.put("counter", post_counter);
 
                                     /**
                                     //add new threads to firebase under respective thread category node and assign unique ID for each post
@@ -342,6 +371,31 @@ public class Discussion extends AppCompatActivity
     //function to send comment data with no image to firebase
     private void CommentWithNoImage()
     {
+
+        //create post counter
+        ThreadsRef.child(getThreadString).child("comments").addValueEventListener(new ValueEventListener()
+        {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot)
+            {
+                if(snapshot.exists())
+                {
+                    post_counter = snapshot.getChildrenCount();
+                }
+                else
+                {
+                    post_counter = 0;
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error)
+            {
+
+            }
+        });
+
+
         /** get time to store time and to use in unique id creation */
         Calendar obtainDate = Calendar.getInstance();
         android.icu.text.SimpleDateFormat currentDate = new android.icu.text.SimpleDateFormat("dd-MMMM-yyyy");
@@ -406,6 +460,7 @@ public class Discussion extends AppCompatActivity
                     occurrenceMap.put("FullName", fullname);
                     occurrenceMap.put("Username", username);
                     occurrenceMap.put("Uploader", "no");
+                    occurrenceMap.put("counter", post_counter);
 
                     /**
                      *
@@ -460,7 +515,7 @@ public class Discussion extends AppCompatActivity
 
         try
         {
-            commentsRef = FirebaseDatabase.getInstance().getReference().child(getTopicString).child(getThreadString).child("comments");
+            commentsRef = FirebaseDatabase.getInstance().getReference().child(getTopicString).child(getThreadString).child("comments").orderByChild("counter");
         }
         catch (Exception e)
         {
@@ -525,6 +580,9 @@ public class Discussion extends AppCompatActivity
                 //set like method
                 holder.setLike(ThreadKey);
 
+                //set dislike method
+                holder.setDislike(ThreadKey);
+
                 //listener for like button
                 holder.disc_upvote.setOnClickListener(new View.OnClickListener()
                 {
@@ -554,8 +612,6 @@ public class Discussion extends AppCompatActivity
                                 }
 
 
-
-
                             }
 
                             @Override
@@ -582,15 +638,17 @@ public class Discussion extends AppCompatActivity
                             @Override
                             public void onDataChange(@NonNull DataSnapshot snapshot)
                             {
-                                if(snapshot.child(ThreadKey).hasChild(userID))
+                                if(DislikeFlag.equals(true))
                                 {
-                                    DislikesReff.child(ThreadKey).child(userID).removeValue();
-                                    DislikeFlag = false;
-                                }
-                                else
-                                {
-                                    DislikesReff.child(ThreadKey).child(userID).setValue(true);
-                                    DislikeFlag = false;
+                                    if (snapshot.child(ThreadKey).hasChild(userID))
+                                    {
+                                        DislikesReff.child(ThreadKey).child(userID).removeValue();
+                                        DislikeFlag = false;
+                                    } else
+                                    {
+                                        DislikesReff.child(ThreadKey).child(userID).setValue(true);
+                                        DislikeFlag = false;
+                                    }
                                 }
                             }
 
@@ -666,9 +724,14 @@ public class Discussion extends AppCompatActivity
         CardView disc_cardview_id;
         CircleImageView disc_profile;
 
+        //likes
         int LikeCount;
         String currentUserID;
         DatabaseReference LikesRef;
+
+        //dislikes
+        int DislikeCount;
+        DatabaseReference DislikeRef;
 
         //constructor
         public DiscussionsViewHolder(@NonNull View itemView)
@@ -677,6 +740,8 @@ public class Discussion extends AppCompatActivity
 
             LikesRef = FirebaseDatabase.getInstance().getReference().child("Likes");
             currentUserID = FirebaseAuth.getInstance().getCurrentUser().getUid();
+
+            DislikeRef = FirebaseDatabase.getInstance().getReference().child("Dislikes");
 
             Username = itemView.findViewById(R.id.disc_username);
             Date = itemView.findViewById(R.id.disc_date);
@@ -727,6 +792,35 @@ public class Discussion extends AppCompatActivity
             });
 
 
+        }
+
+
+        //dislike method
+        public void setDislike(final String ThreadKey)
+        {
+            DislikeRef.addValueEventListener(new ValueEventListener()
+            {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot)
+                {
+                    if(snapshot.child(ThreadKey).hasChild(currentUserID))
+                    {
+                        DislikeCount = (int) snapshot.child(ThreadKey).getChildrenCount();
+                        disc_dislikes_text.setText(Integer.toString(DislikeCount));
+                    }
+                    else
+                    {
+                        DislikeCount = (int) snapshot.child(ThreadKey).getChildrenCount();
+                        disc_dislikes_text.setText(Integer.toString(DislikeCount));
+                    }
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError error)
+                {
+
+                }
+            });
         }
 
 
