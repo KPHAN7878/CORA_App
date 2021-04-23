@@ -42,6 +42,8 @@ import com.squareup.picasso.Picasso;
 import java.util.Calendar;
 import java.util.HashMap;
 
+import de.hdodenhof.circleimageview.CircleImageView;
+
 public class Discussion extends AppCompatActivity
 {
 
@@ -239,6 +241,31 @@ public class Discussion extends AppCompatActivity
                                     String username = snapshot.child("Username").getValue().toString();
 
 
+
+                                    //store profile image
+                                    UserRef.child(userID).addValueEventListener(new ValueEventListener()
+                                    {
+                                        @Override
+                                        public void onDataChange(@NonNull DataSnapshot snapshot)
+                                        {
+                                            if(snapshot.exists())
+                                            {
+                                                String profilePic = snapshot.child("Profile").getValue().toString();
+                                                HashMap profileMap = new HashMap();
+                                                profileMap.put("ProfilePic", profilePic);
+                                                //ThreadsRef.child(userID + postRandomID).updateChildren(profileMap);
+                                                ThreadsRef.child(getThreadString).child("comments").child(userID + postRandomID + "comment").updateChildren(profileMap);
+                                            }
+                                        }
+
+                                        @Override
+                                        public void onCancelled(@NonNull DatabaseError error)
+                                        {
+
+                                        }
+                                    });
+
+
                                     //create new node in database for occurrence and store information
                                     // -store userID
                                     // - store date
@@ -338,6 +365,30 @@ public class Discussion extends AppCompatActivity
                     storageURL = "null";
 
 
+                    //store profile image
+                    UserRef.child(userID).addValueEventListener(new ValueEventListener()
+                    {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot snapshot)
+                        {
+                            if(snapshot.exists())
+                            {
+                                String profilePic = snapshot.child("Profile").getValue().toString();
+                                HashMap profileMap = new HashMap();
+                                profileMap.put("ProfilePic", profilePic);
+                                //ThreadsRef.child(userID + postRandomID).updateChildren(profileMap);
+                                ThreadsRef.child(getThreadString).child("comments").child(userID + postRandomID + "comment").updateChildren(profileMap);
+                            }
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError error)
+                        {
+
+                        }
+                    });
+
+
                     //create new node in database for occurrence and store information
                     // -store userID
                     // - store date
@@ -435,7 +486,8 @@ public class Discussion extends AppCompatActivity
                                         snapshot.child("image").getValue().toString(),
                                         snapshot.child("description").getValue().toString(),
                                         snapshot.child("title").getValue().toString(),
-                                        snapshot.child("Uploader").getValue().toString());
+                                        snapshot.child("Uploader").getValue().toString(),
+                                        snapshot.child("ProfilePic").getValue().toString());
                                 //snapshot.child("Uploader").getValue().toString();
                             }
                         })
@@ -548,6 +600,8 @@ public class Discussion extends AppCompatActivity
                     Picasso.get().load(model.getImage()).into(holder.Image);
                 }
 
+                Picasso.get().load(model.getProfilePic()).fit().centerCrop().into(holder.disc_profile);
+
 
                 /** test for displaying no image */
 
@@ -583,6 +637,7 @@ public class Discussion extends AppCompatActivity
         TextView Username, Date, Title, Description, disc_likes_text, disc_dislikes_text;
         ImageView Image, disc_upvote, disc_downvote;
         CardView disc_cardview_id;
+        CircleImageView disc_profile;
 
         int LikeCount;
         String currentUserID;
@@ -601,6 +656,8 @@ public class Discussion extends AppCompatActivity
             Title = itemView.findViewById(R.id.disc_title);
             Description = itemView.findViewById(R.id.disc_description);
             Image = itemView.findViewById(R.id.disc_image);
+
+            disc_profile = itemView.findViewById(R.id.disc_profile);
 
             disc_upvote = itemView.findViewById(R.id.disc_upvote);
             disc_downvote = itemView.findViewById(R.id.disc_downvote);

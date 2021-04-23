@@ -22,6 +22,9 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
+import com.squareup.picasso.Picasso;
+
+import de.hdodenhof.circleimageview.CircleImageView;
 
 public class Threads extends AppCompatActivity
 {
@@ -116,7 +119,8 @@ public class Threads extends AppCompatActivity
                                         snapshot.child("date").getValue().toString(),
                                         snapshot.child("image").getValue().toString(),
                                         snapshot.child("description").getValue().toString(),
-                                        snapshot.child("title").getValue().toString());
+                                        snapshot.child("title").getValue().toString(),
+                                        snapshot.child("ProfilePic").getValue().toString());
                                         //snapshot.child("Uploader").getValue().toString();
                             }
                         })
@@ -150,6 +154,8 @@ public class Threads extends AppCompatActivity
                 holder.Title.setText(model.getTitle());
                 holder.Description.setText(model.getDescription());
 
+                Picasso.get().load(model.getProfilePic()).fit().centerCrop().into(holder.t_profile);
+
                 /** test for displaying no image */
 
                 //holder.itemView
@@ -182,6 +188,8 @@ public class Threads extends AppCompatActivity
     {
         TextView Username, Date, Title, Description;
 
+        CircleImageView t_profile;
+
         CardView thread_cardview_id;
 
         //constructor
@@ -193,6 +201,8 @@ public class Threads extends AppCompatActivity
             Date = itemView.findViewById(R.id.t_date);
             Title = itemView.findViewById(R.id.t_title);
             Description = itemView.findViewById(R.id.t_description);
+
+            t_profile = itemView.findViewById(R.id.t_profile);
 
             thread_cardview_id = itemView.findViewById(R.id.t_cardview_id);
         }

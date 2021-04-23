@@ -136,6 +136,8 @@ public class MyPosts extends AppCompatActivity
                 holder.crimetype_mypost.setText(model.getCategory());
                 holder.date_mypost.setText(model.getDate());
 
+                Picasso.get().load(model.getImage()).fit().centerCrop().into(holder.myposts_image);
+
                 //edit button
                 holder.editPost_button.setOnClickListener(new View.OnClickListener()
                 {
@@ -181,9 +183,12 @@ public class MyPosts extends AppCompatActivity
 
         Button editPost_button, deletePost_button;
 
+        ImageView myposts_image;
+
         //constructor
         public MyPostsViewHolder(@NonNull View itemView)
         {
+
             super(itemView);
 
             title_mypost = itemView.findViewById(R.id.title_mypost);
@@ -195,6 +200,8 @@ public class MyPosts extends AppCompatActivity
 
             editPost_button = itemView.findViewById(R.id.editPost_button);
             deletePost_button = itemView.findViewById(R.id.deletePost_button);
+
+            myposts_image = itemView.findViewById(R.id.myposts_image);
 
         }
 

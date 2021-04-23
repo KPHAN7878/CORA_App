@@ -12,7 +12,7 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="275dp">
+            android:layout_height="match_parent">
 
             <TextView
                 android:id="@+id/title_mypost"
@@ -31,7 +31,7 @@
             <TextView
                 android:id="@+id/description_mypost"
                 android:layout_width="0dp"
-                android:layout_height="100dp"
+                android:layout_height="wrap_content"
                 android:layout_marginStart="3dp"
                 android:layout_marginLeft="3dp"
                 android:layout_marginTop="7dp"
@@ -42,16 +42,27 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/title_mypost" />
 
+            <ImageView
+                android:id="@+id/myposts_image"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="3dp"
+                android:layout_marginLeft="3dp"
+                android:layout_marginTop="7dp"
+                android:layout_marginEnd="3dp"
+                android:layout_marginRight="3dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/description_mypost" />
+
             <TextView
                 android:id="@+id/crimetype_mypost"
                 android:layout_width="100dp"
                 android:layout_height="25dp"
-                android:layout_marginStart="3dp"
-                android:layout_marginLeft="3dp"
                 android:layout_marginTop="7dp"
                 android:text="type"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/description_mypost" />
+                app:layout_constraintTop_toBottomOf="@+id/myposts_image"
+                tools:layout_editor_absoluteX="3dp" />
 
             <TextView
                 android:id="@+id/date_mypost"
@@ -68,39 +79,40 @@
                 android:id="@+id/mypost_border"
                 android:layout_width="match_parent"
                 android:layout_height="15dp"
+                android:layout_marginTop="10dp"
                 android:background="#F1EDED"
                 android:minHeight="?attr/actionBarSize"
                 android:theme="?attr/actionBarTheme"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toStartOf="parent" />
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/editPost_button"
+                app:layout_constraintVertical_bias="0.182" />
 
             <Button
                 android:id="@+id/editPost_button"
                 android:layout_width="120dp"
                 android:layout_height="44dp"
-                android:layout_marginStart="65dp"
-                android:layout_marginLeft="65dp"
-                android:layout_marginBottom="4dp"
+                android:layout_marginStart="60dp"
+                android:layout_marginLeft="60dp"
+                android:layout_marginTop="15dp"
                 android:text="Edit"
                 app:backgroundTint="#4CAF50"
-                app:layout_constraintBottom_toTopOf="@+id/mypost_border"
-                app:layout_constraintEnd_toStartOf="@+id/deletePost_button"
-                app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toStartOf="parent" />
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/date_mypost" />
 
             <Button
                 android:id="@+id/deletePost_button"
                 android:layout_width="120dp"
                 android:layout_height="44dp"
-                android:layout_marginEnd="65dp"
-                android:layout_marginRight="65dp"
-                android:layout_marginBottom="5dp"
+                android:layout_marginTop="15dp"
+                android:layout_marginEnd="60dp"
+                android:layout_marginRight="60dp"
                 android:text="Delete"
                 app:backgroundTint="#FF0000"
-                app:layout_constraintBottom_toTopOf="@+id/mypost_border"
-                app:layout_constraintEnd_toEndOf="parent" />
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/date_mypost" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>
 </androidx.constraintlayout.widget.ConstraintLayout>

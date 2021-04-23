@@ -2,7 +2,7 @@ package com.example.coraapp;
 
 public class ThreadsModel
 {
-    public String Username, UID, date, description, title;
+    public String Username, UID, date, description, title, ProfilePic;
     public String Uploader;
     public String image = "";
 
@@ -13,7 +13,7 @@ public class ThreadsModel
     }
 
     //public ThreadsModel(String username, String UID, String date, String image, String description, String title, String Uploader)
-    public ThreadsModel(String username, String UID, String date, String image, String description, String title)
+    public ThreadsModel(String username, String UID, String date, String image, String description, String title, String ProfilePic)
     {
         Username = username;
         this.UID = UID;
@@ -21,6 +21,7 @@ public class ThreadsModel
         this.image = image;
         this.description = description;
         this.title = title;
+        this.ProfilePic = ProfilePic;
         //this.Uploader = Uploader;
     }
 
@@ -81,6 +82,15 @@ public class ThreadsModel
     public void setTitle(String title)
     {
         this.title = title;
+    }
+
+    public String getProfilePic()
+    {
+        return ProfilePic;
+    }
+    public void setProfilePic(String ProfilePic)
+    {
+        this.ProfilePic = ProfilePic;
     }
 
     /**

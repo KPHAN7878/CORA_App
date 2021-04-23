@@ -2,7 +2,7 @@ package com.example.coraapp;
 
 public class DiscussionModel
 {
-    public String Username, UID, date, description, title;
+    public String Username, UID, date, description, title, ProfilePic;
     public String Uploader;
     public String image = "";
 
@@ -12,7 +12,7 @@ public class DiscussionModel
 
     }
 
-    public DiscussionModel(String username, String UID, String date, String image, String description, String title, String Uploader)
+    public DiscussionModel(String username, String UID, String date, String image, String description, String title, String Uploader, String ProfilePic)
     //public DiscussionModel(String username, String UID, String date, String image, String description, String title)
     {
         Username = username;
@@ -21,6 +21,7 @@ public class DiscussionModel
         this.image = image;
         this.description = description;
         this.title = title;
+        this.ProfilePic = ProfilePic;
         //this.Uploader = Uploader;
     }
 
@@ -91,6 +92,15 @@ public class DiscussionModel
     public void setUploader(String Uploader)
     {
         this.Uploader = Uploader;
+    }
+
+    public String getProfilePic()
+    {
+        return ProfilePic;
+    }
+    public void setProfilePic(String ProfilePic)
+    {
+        this.ProfilePic = ProfilePic;
     }
 
 }
