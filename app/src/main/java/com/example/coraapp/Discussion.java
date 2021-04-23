@@ -53,7 +53,7 @@ public class Discussion extends AppCompatActivity
     private Query commentsRef;
     private FirebaseAuth mAuth;
     private StorageReference ImageRef;
-    private DatabaseReference UserRef, ThreadsRef;
+    private DatabaseReference UserRef, ThreadsRef, LikesReff;
 
     //recycleradapter variable
     private RecyclerView DiscussionList;
@@ -74,6 +74,9 @@ public class Discussion extends AppCompatActivity
     private String saveCurrentDate, saveCurrentTime, postRandomID;
     String storageURL;
     private String userID;
+
+    //boolean vriable for likes
+    Boolean LikeFlag = false;
 
 
 
@@ -99,6 +102,7 @@ public class Discussion extends AppCompatActivity
         ImageRef = FirebaseStorage.getInstance().getReference();
         UserRef = FirebaseDatabase.getInstance().getReference().child("Users");
         ThreadsRef = FirebaseDatabase.getInstance().getReference().child(getTopicString);
+        LikesReff = FirebaseDatabase.getInstance().getReference().child("Likes");
         //ThreadsRef = FirebaseDatabase.getInstance().getReference().child(getTopicString + "Threads");
 
 
@@ -464,6 +468,66 @@ public class Discussion extends AppCompatActivity
                 holder.Date.setText(model.getDate());
                 holder.Description.setText(model.getDescription());
 
+                //set like method
+                holder.setLike(ThreadKey);
+
+                //listener for like button
+                holder.disc_upvote.setOnClickListener(new View.OnClickListener()
+                {
+                    @Override
+                    public void onClick(View v)
+                    {
+                        LikeFlag = true;
+                        LikesReff.addValueEventListener(new ValueEventListener()
+                        {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot snapshot)
+                            {
+
+
+                                if(LikeFlag.equals(true))
+                                {
+                                    if(snapshot.child(ThreadKey).hasChild(userID))
+                                    {
+                                        LikesReff.child(ThreadKey).child(userID).removeValue();
+                                        LikeFlag = false;
+                                    }
+                                    else
+                                    {
+                                        LikesReff.child(ThreadKey).child(userID).setValue(true);
+                                        LikeFlag = false;
+                                    }
+                                }
+
+
+
+
+                            }
+
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError error)
+                            {
+
+                            }
+                        });
+                    }
+                });
+
+
+
+
+                //listener for dislike button
+                holder.disc_downvote.setOnClickListener(new View.OnClickListener()
+                {
+                    @Override
+                    public void onClick(View v)
+                    {
+
+                    }
+                });
+
+
+
                 if(model.getTitle().toString().equals("null"))
                 {
                     holder.Title.setVisibility(View.GONE);
@@ -516,14 +580,21 @@ public class Discussion extends AppCompatActivity
     //static class for "FirebseRecyclerAdapter" in method "DisplayAllPosts"
     public static class DiscussionsViewHolder extends RecyclerView.ViewHolder
     {
-        TextView Username, Date, Title, Description;
-        ImageView Image;
+        TextView Username, Date, Title, Description, disc_likes_text, disc_dislikes_text;
+        ImageView Image, disc_upvote, disc_downvote;
         CardView disc_cardview_id;
+
+        int LikeCount;
+        String currentUserID;
+        DatabaseReference LikesRef;
 
         //constructor
         public DiscussionsViewHolder(@NonNull View itemView)
         {
             super(itemView);
+
+            LikesRef = FirebaseDatabase.getInstance().getReference().child("Likes");
+            currentUserID = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
             Username = itemView.findViewById(R.id.disc_username);
             Date = itemView.findViewById(R.id.disc_date);
@@ -531,8 +602,48 @@ public class Discussion extends AppCompatActivity
             Description = itemView.findViewById(R.id.disc_description);
             Image = itemView.findViewById(R.id.disc_image);
 
+            disc_upvote = itemView.findViewById(R.id.disc_upvote);
+            disc_downvote = itemView.findViewById(R.id.disc_downvote);
+            disc_likes_text = itemView.findViewById(R.id.disc_likes_text);
+
             disc_cardview_id = itemView.findViewById(R.id.disc_cardview_id);
         }
+
+
+
+        public void setLike(final String ThreadKey)
+        {
+
+
+            LikesRef.addValueEventListener(new ValueEventListener()
+            {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot)
+                {
+                    if(snapshot.child(ThreadKey).hasChild(currentUserID))
+                    {
+                        LikeCount = (int) snapshot.child(ThreadKey).getChildrenCount();
+                        //disc_upvote.setImageResource(R.drawable.);
+                        disc_likes_text.setText(Integer.toString(LikeCount));
+                    }
+                    else
+                    {
+                        LikeCount = (int) snapshot.child(ThreadKey).getChildrenCount();
+                        //disc_upvote.setImageResource(R.drawable.);
+                        disc_likes_text.setText(Integer.toString(LikeCount));
+                    }
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError error)
+                {
+
+                }
+            });
+
+
+        }
+
 
     }
 }

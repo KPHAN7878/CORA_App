@@ -163,6 +163,9 @@ public class CreateThread extends AppCompatActivity
 
         postRandomID = saveCurrentDate + saveCurrentTime;
 
+
+
+
         StorageReference filePath = ImageRef.child("occurrence image").child(imageUri.getLastPathSegment() + postRandomID + ".jpg");
 
         filePath.putFile(imageUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>()
@@ -190,6 +193,29 @@ public class CreateThread extends AppCompatActivity
                                 {
                                     String fullname = snapshot.child("FullName").getValue().toString();
                                     String username = snapshot.child("Username").getValue().toString();
+
+                                    //store profile image
+                                    UserRef.child(userID).addValueEventListener(new ValueEventListener()
+                                    {
+                                        @Override
+                                        public void onDataChange(@NonNull DataSnapshot snapshot)
+                                        {
+                                            if(snapshot.exists())
+                                            {
+                                                String profilePic = snapshot.child("Profile").getValue().toString();
+                                                HashMap profileMap = new HashMap();
+                                                profileMap.put("ProfilePic", profilePic);
+                                                ThreadsRef.child(userID + postRandomID).updateChildren(profileMap);
+                                                ThreadsRef.child(userID + postRandomID).child("comments").child(userID + postRandomID + "-comment").updateChildren(profileMap);
+                                            }
+                                        }
+
+                                        @Override
+                                        public void onCancelled(@NonNull DatabaseError error)
+                                        {
+
+                                        }
+                                    });
 
 
                                     //create new node in database for occurrence and store information
@@ -273,6 +299,8 @@ public class CreateThread extends AppCompatActivity
 
         postRandomID = saveCurrentDate + saveCurrentTime;
 
+
+
         //this part is retrieving user's name from database to link with their post
         UserRef.child(userID).addValueEventListener(new ValueEventListener()
         {
@@ -285,6 +313,30 @@ public class CreateThread extends AppCompatActivity
                     String fullname = snapshot.child("FullName").getValue().toString();
                     String username = snapshot.child("Username").getValue().toString();
                     storageURL = "null";
+
+
+                    //store profile image
+                    UserRef.child(userID).addValueEventListener(new ValueEventListener()
+                    {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot snapshot)
+                        {
+                            if(snapshot.exists())
+                            {
+                                String profilePic = snapshot.child("Profile").getValue().toString();
+                                HashMap profileMap = new HashMap();
+                                profileMap.put("ProfilePic", profilePic);
+                                ThreadsRef.child(userID + postRandomID).updateChildren(profileMap);
+                                ThreadsRef.child(userID + postRandomID).child("comments").child(userID + postRandomID + "-comment").updateChildren(profileMap);
+                            }
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError error)
+                        {
+
+                        }
+                    });
 
 
                     //create new node in database for occurrence and store information
@@ -324,7 +376,7 @@ public class CreateThread extends AppCompatActivity
 
 
                     /** Add a copy of the thread data under subnode "comments" to use single recycleradapter when displaying in discussion later */
-                    ThreadsRef.child(userID + postRandomID).child("comments").child(userID + postRandomID + "comment").updateChildren(occurrenceMap).addOnCompleteListener(new OnCompleteListener()
+                    ThreadsRef.child(userID + postRandomID).child("comments").child(userID + postRandomID + "-comment").updateChildren(occurrenceMap).addOnCompleteListener(new OnCompleteListener()
                     {
                         @Override
                         public void onComplete(@NonNull Task task)
