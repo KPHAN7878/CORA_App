@@ -5,10 +5,12 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.graphics.Color;
+import android.media.Image;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.github.mikephil.charting.charts.PieChart;
@@ -48,6 +50,7 @@ public class PieChartActivity extends AppCompatActivity
 
     private Button zipcode_filter, pie_return_home;
     private EditText zipcode_edittext;
+    private ImageView back_button2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -69,6 +72,18 @@ public class PieChartActivity extends AppCompatActivity
         zipcode_filter = findViewById(R.id.zipcode_filter);
         zipcode_edittext = findViewById(R.id.zipcode_edittext);
         pie_return_home = findViewById(R.id.pie_return_home);
+
+        back_button2 = findViewById(R.id.back_button2);
+
+        back_button2.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                Intent Home = new Intent(PieChartActivity.this, MainActivity.class);
+                startActivity(Home);
+            }
+        });
 
 
         OccDBRef = OccRef.getInstance().getReference("Occurrence");

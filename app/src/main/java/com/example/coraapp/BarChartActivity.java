@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 
 import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.components.XAxis;
@@ -31,6 +32,7 @@ public class BarChartActivity extends AppCompatActivity
 
     private Button bar_zipcode_button, bar_return_home;
     private EditText filter_bar_edittext;
+    private ImageView back_button2;
 
     private FirebaseDatabase OccRef;
     private DatabaseReference OccDBRef;
@@ -41,13 +43,13 @@ public class BarChartActivity extends AppCompatActivity
     private int SuspiciousCount = 0;
     private int MurderCount = 0;
 
-    ArrayList<BarEntry> BARENTRY;
+    ArrayList<BarEntry> entry;
 
     ArrayList<String> BarEntryLabels;
 
     BarDataSet Bardataset;
 
-    BarData BARDATA;
+    BarData data;
 
     //filter variables
     private String zip_filter = "";
@@ -73,6 +75,17 @@ public class BarChartActivity extends AppCompatActivity
         bar_zipcode_button = findViewById(R.id.bar_zipcode_button);
         bar_return_home = findViewById(R.id.bar_return_home);
         filter_bar_edittext = findViewById(R.id.filter_bar_edittext);
+        back_button2 = findViewById(R.id.back_button2);
+
+        back_button2.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                Intent Home = new Intent(BarChartActivity.this, MainActivity.class);
+                startActivity(Home);
+            }
+        });
 
 
         bar_zipcode_button.setOnClickListener(new View.OnClickListener()
@@ -154,7 +167,7 @@ public class BarChartActivity extends AppCompatActivity
 
 
                     /** initialize charts */
-                    BARENTRY = new ArrayList<>();
+                    entry = new ArrayList<>();
 
                     BarEntryLabels = new ArrayList<String>();
 
@@ -166,11 +179,11 @@ public class BarChartActivity extends AppCompatActivity
                      BARENTRY.add(new BarEntry(MurderCount, 4));
                      */
 
-                    BARENTRY.add(new BarEntry(0, AssaultCount));
-                    BARENTRY.add(new BarEntry(1, TheftCount));
-                    BARENTRY.add(new BarEntry(2, BurglaryCount));
-                    BARENTRY.add(new BarEntry(3, SuspiciousCount));
-                    BARENTRY.add(new BarEntry(4, MurderCount));
+                    entry.add(new BarEntry(0, AssaultCount));
+                    entry.add(new BarEntry(1, TheftCount));
+                    entry.add(new BarEntry(2, BurglaryCount));
+                    entry.add(new BarEntry(3, SuspiciousCount));
+                    entry.add(new BarEntry(4, MurderCount));
 
                     final String[] lb = new String[]{"Assault", "Theft", "Burglar", "Other", "Murder"};
                     XAxis xAxis = barchart.getXAxis();
@@ -187,13 +200,13 @@ public class BarChartActivity extends AppCompatActivity
                     BarEntryLabels.add("Other");
                     BarEntryLabels.add("Murder");
 
-                    Bardataset = new BarDataSet(BARENTRY, "Projects");
-                    BARDATA = new BarData(Bardataset);
-                    BARDATA.setBarWidth(0.6f);
+                    Bardataset = new BarDataSet(entry, "Projects");
+                    data = new BarData(Bardataset);
+                    data.setBarWidth(0.6f);
 
                     Bardataset.setColors(ColorTemplate.COLORFUL_COLORS);
 
-                    barchart.setData(BARDATA);
+                    barchart.setData(data);
                     barchart.getAxisLeft().setDrawGridLines(false);
                     barchart.getXAxis().setDrawGridLines(false);
                     barchart.getAxisRight().setDrawGridLines(false);
@@ -255,7 +268,7 @@ public class BarChartActivity extends AppCompatActivity
 
 
                     /** initialize charts */
-                    BARENTRY = new ArrayList<>();
+                    entry = new ArrayList<>();
 
                     BarEntryLabels = new ArrayList<String>();
 
@@ -267,11 +280,11 @@ public class BarChartActivity extends AppCompatActivity
                      BARENTRY.add(new BarEntry(MurderCount, 4));
                      */
 
-                    BARENTRY.add(new BarEntry(0, AssaultCount));
-                    BARENTRY.add(new BarEntry(1, TheftCount));
-                    BARENTRY.add(new BarEntry(2, BurglaryCount));
-                    BARENTRY.add(new BarEntry(3, SuspiciousCount));
-                    BARENTRY.add(new BarEntry(4, MurderCount));
+                    entry.add(new BarEntry(0, AssaultCount));
+                    entry.add(new BarEntry(1, TheftCount));
+                    entry.add(new BarEntry(2, BurglaryCount));
+                    entry.add(new BarEntry(3, SuspiciousCount));
+                    entry.add(new BarEntry(4, MurderCount));
 
                     final String[] lb = new String[]{"Assault", "Theft", "Burglar", "Other", "Murder"};
                     XAxis xAxis = barchart.getXAxis();
@@ -288,18 +301,18 @@ public class BarChartActivity extends AppCompatActivity
                     BarEntryLabels.add("Other");
                     BarEntryLabels.add("Murder");
 
-                    Bardataset = new BarDataSet(BARENTRY, "Projects");
-                    BARDATA = new BarData(Bardataset);
-                    BARDATA.setBarWidth(0.6f);
+                    Bardataset = new BarDataSet(entry, "Projects");
+                    data = new BarData(Bardataset);
+                    data.setBarWidth(0.6f);
 
                     Bardataset.setColors(ColorTemplate.COLORFUL_COLORS);
 
-                    barchart.setData(BARDATA);
+                    barchart.setData(data);
                     barchart.getAxisLeft().setDrawGridLines(false);
                     barchart.getXAxis().setDrawGridLines(false);
                     barchart.getAxisRight().setDrawGridLines(false);
 
-                    barchart.animateY(3000);
+                    barchart.animateY(1000);
                 }
 
 

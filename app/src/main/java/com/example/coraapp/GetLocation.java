@@ -46,7 +46,7 @@ public class GetLocation extends AppCompatActivity implements View.OnClickListen
         findViewById(R.id.btnAddressPicker).setOnClickListener(this);
 
         //button initializer
-        submit_location_btn = findViewById(R.id.submit_location_btn);
+        //submit_location_btn = findViewById(R.id.submit_location_btn);
 
         txtLatLong = findViewById(R.id.txtLatLong);
         txtAddress = findViewById(R.id.txtAddress);

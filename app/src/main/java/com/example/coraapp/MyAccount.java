@@ -21,7 +21,7 @@ import com.squareup.picasso.Picasso;
 public class MyAccount extends AppCompatActivity
 {
 
-    ImageView account_profile, back_button;
+    ImageView account_profile, back_button2;
 
     TextView account_username, account_fullname, account_address;
 
@@ -51,7 +51,7 @@ public class MyAccount extends AppCompatActivity
 
         account_edit = findViewById(R.id.account_edit);
 
-        back_button = findViewById(R.id.back_button);
+        back_button2 = findViewById(R.id.back_button2);
 
         //retireve data from firebase user instance to display
         MyAccountRef.addValueEventListener(new ValueEventListener()
@@ -103,7 +103,7 @@ public class MyAccount extends AppCompatActivity
             }
         });
 
-        back_button.setOnClickListener(new View.OnClickListener()
+        back_button2.setOnClickListener(new View.OnClickListener()
         {
             @Override
             public void onClick(View v)

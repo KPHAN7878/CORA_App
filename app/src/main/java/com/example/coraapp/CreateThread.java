@@ -36,8 +36,8 @@ import java.util.HashMap;
 public class CreateThread extends AppCompatActivity
 {
     //toolbar variables
-    private ImageView back_button, post_button;
-    private TextView toolbar_text;
+    private ImageView back_button, post_button, back_button2;
+    private TextView toolbar_text2;
 
     //thread data variables
     private EditText thread_title, thread_description;
@@ -89,9 +89,9 @@ public class CreateThread extends AppCompatActivity
 
 
         //initialize toolbar variables
-        back_button = findViewById(R.id.back_button);
-        post_button = findViewById(R.id.post_button);
-        toolbar_text = findViewById(R.id.toolbar_text);
+        //back_button = findViewById(R.id.back_button);
+        //post_button = findViewById(R.id.post_button);
+        toolbar_text2 = findViewById(R.id.toolbar_text2);
 
         //initialize thread info variables
         thread_title = findViewById(R.id.thread_title);
@@ -99,19 +99,21 @@ public class CreateThread extends AppCompatActivity
         thread_image = findViewById(R.id.thread_image);
         thread_submit = findViewById(R.id.thread_submit);
 
-        toolbar_text.setText("Create Thread");
-        post_button.setVisibility(View.INVISIBLE);
+        toolbar_text2.setText("Create Thread");
+        //post_button.setVisibility(View.INVISIBLE);
 
-        //listener for tool bar back button
-        back_button.setOnClickListener(new View.OnClickListener()
+        back_button2 = findViewById(R.id.back_button2);
+
+        back_button2.setOnClickListener(new View.OnClickListener()
         {
             @Override
             public void onClick(View v)
             {
-                Intent backIntent = new Intent(CreateThread.this, Threads.class);
-                startActivity(backIntent);
+                Intent Home = new Intent(CreateThread.this, Threads.class);
+                startActivity(Home);
             }
         });
+
 
         //listener for upload image
         thread_image.setOnClickListener(new View.OnClickListener()

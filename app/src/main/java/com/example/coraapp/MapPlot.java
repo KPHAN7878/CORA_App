@@ -52,6 +52,8 @@ public class MapPlot extends AppCompatActivity implements OnMapReadyCallback
 
     private ImageView filter_button;
 
+    private ImageView back_button2;
+
     Geocoder geocoder;
 
     @Override
@@ -62,6 +64,18 @@ public class MapPlot extends AppCompatActivity implements OnMapReadyCallback
 
         /** not sure if correct */
         filter_button = findViewById(R.id.post_button);
+
+        back_button2 = findViewById(R.id.back_button2);
+
+        back_button2.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                Intent Home = new Intent(MapPlot.this, MainActivity.class);
+                startActivity(Home);
+            }
+        });
 
         geocoder = new Geocoder(this);
 

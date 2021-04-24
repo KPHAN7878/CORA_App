@@ -26,9 +26,11 @@ import com.firebase.ui.database.SnapshotParser;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -50,6 +52,8 @@ public class MainActivity extends AppCompatActivity
     //private DatabaseReference PostsRef;
     private Query PostsRef;
 
+    private String currentUserID;
+
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
@@ -57,12 +61,33 @@ public class MainActivity extends AppCompatActivity
         //test
 
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
 
+        //checks if admin
         mAuth = FirebaseAuth.getInstance();
+        currentUserID = mAuth.getCurrentUser().getUid();
         UsersRef = FirebaseDatabase.getInstance().getReference().child("Users");
-        //get reference to "Occurrence" node for recycleview method
+        UsersRef.child(currentUserID).addValueEventListener(new ValueEventListener()
+        {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot)
+            {
+                String adminStatus = snapshot.child("Admin").getValue().toString();
 
+                if(adminStatus.equals("YES"))
+                {
+                    Intent GoToAdmin = new Intent(MainActivity.this, AdminActivity.class);
+                    startActivity(GoToAdmin);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error)
+            {
+
+            }
+        });
+
+        setContentView(R.layout.activity_main);
 
         //PostsRef = FirebaseDatabase.getInstance().getReference().child("Occurrence");
         //PostsRef = FirebaseDatabase.getInstance().getReference().child("Occurrence");

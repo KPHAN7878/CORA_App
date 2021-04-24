@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
+import android.media.Image;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -31,6 +32,8 @@ public class MyPosts extends AppCompatActivity
     private RecyclerView myposts_recycler;
     private FirebaseRecyclerAdapter adapter;
 
+    private ImageView back_button2;
+
 
     private FirebaseAuth mAuth;
     private DatabaseReference mpRef;
@@ -51,6 +54,18 @@ public class MyPosts extends AppCompatActivity
         linearLayoutManager.setReverseLayout(true);
         linearLayoutManager.setStackFromEnd(true);
         myposts_recycler.setLayoutManager(linearLayoutManager);
+
+        back_button2 = findViewById(R.id.back_button2);
+
+        back_button2.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                Intent Home = new Intent(MyPosts.this, MainActivity.class);
+                startActivity(Home);
+            }
+        });
 
 
         DisplayMyPosts();

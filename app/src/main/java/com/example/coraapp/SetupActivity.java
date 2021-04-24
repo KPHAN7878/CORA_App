@@ -227,6 +227,7 @@ public class SetupActivity extends AppCompatActivity
             userMap.put("Latitude", latString);
             userMap.put("Longitude", langString);
             userMap.put("coordinate", coordinate);
+            userMap.put("Admin", "NO");
 
 
             //update in database

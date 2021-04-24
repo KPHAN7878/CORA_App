@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.ListView;
 
 import com.google.firebase.database.DataSnapshot;
@@ -21,6 +22,7 @@ import java.util.ArrayList;
 public class ForumsHome extends AppCompatActivity
 {
     private ListView listView_id;
+    private ImageView back_button2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -29,6 +31,18 @@ public class ForumsHome extends AppCompatActivity
         setContentView(R.layout.activity_forums_home);
 
         listView_id = findViewById(R.id.listView_id);
+
+        back_button2 = findViewById(R.id.back_button2);
+
+        back_button2.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                Intent Home = new Intent(ForumsHome.this, MainActivity.class);
+                startActivity(Home);
+            }
+        });
 
         ArrayList<String> list = new ArrayList<>();
         ArrayAdapter adapter = new ArrayAdapter<String>(this,R.layout.list_item, list);

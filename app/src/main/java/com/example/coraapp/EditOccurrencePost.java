@@ -36,7 +36,7 @@ import java.util.HashMap;
 public class EditOccurrencePost extends AppCompatActivity
 {
 
-    private ImageView post_edit_image;
+    private ImageView post_edit_image, back_button2;
     private EditText post_edit_title, post_edit_description;
     private Button post_edit_submit;
 
@@ -77,6 +77,18 @@ public class EditOccurrencePost extends AppCompatActivity
         post_edit_title = findViewById(R.id.post_edit_title);
         post_edit_description = findViewById(R.id.post_edit_description);
         post_edit_submit = findViewById(R.id.post_edit_submit);
+
+        back_button2 = findViewById(R.id.back_button2);
+
+        back_button2.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                Intent Home = new Intent(EditOccurrencePost.this, MainActivity.class);
+                startActivity(Home);
+            }
+        });
 
 
         ThisOccurrenceRef.addValueEventListener(new ValueEventListener()

@@ -39,7 +39,7 @@ public class EditAccount extends AppCompatActivity
     private FirebaseAuth mAuth;
     private StorageReference ImageRef;
 
-    ImageView edit_profile;
+    ImageView edit_profile, back_button2;
     EditText edit_username, edit_fullname, edit_address, edit_city, edit_zipcode;
     Button edit_submit;
 
@@ -73,6 +73,18 @@ public class EditAccount extends AppCompatActivity
         edit_zipcode = findViewById(R.id.edit_zipcode);
 
         edit_submit = findViewById(R.id.edit_submit);
+
+        back_button2 = findViewById(R.id.back_button2);
+
+        back_button2.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                Intent Home = new Intent(EditAccount.this, MainActivity.class);
+                startActivity(Home);
+            }
+        });
 
 
         //get the data from that particular user

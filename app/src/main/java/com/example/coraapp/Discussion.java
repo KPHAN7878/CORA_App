@@ -65,7 +65,7 @@ public class Discussion extends AppCompatActivity
     //commenting items
     EditText comment_edittext_id;
     ImageButton uploadpic_id;
-    ImageView send_comment_id;
+    ImageView send_comment_id, back_button2;
 
     /** variables to store comment content to upload to firebase */
     private String commentDescription;
@@ -118,6 +118,18 @@ public class Discussion extends AppCompatActivity
         comment_edittext_id = findViewById(R.id.comment_edittext_id);
         uploadpic_id = findViewById(R.id.uploadpic_id);
         send_comment_id = findViewById(R.id.send_comment_id);
+
+        back_button2 = findViewById(R.id.back_button2);
+
+        back_button2.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                Intent Home = new Intent(Discussion.this, Threads.class);
+                startActivity(Home);
+            }
+        });
 
 
 

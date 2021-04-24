@@ -16,6 +16,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -52,6 +53,7 @@ public class PostActivity extends AppCompatActivity implements AdapterView.OnIte
     private EditText description_post;
     private ImageButton picture_post;
     private Spinner spinner;
+    private ImageView back_button2;
 
     /** coordinate variables */
     String lat;
@@ -119,8 +121,18 @@ public class PostActivity extends AppCompatActivity implements AdapterView.OnIte
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(adapter);
 
+        back_button2 = findViewById(R.id.back_button2);
 
-        test_btn = findViewById(R.id.test_btn);
+        back_button2.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                Intent Home = new Intent(PostActivity.this, MainActivity.class);
+                startActivity(Home);
+            }
+        });
+
 
         /*
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.category, android.R.layout.simple_spinner_item);
@@ -180,14 +192,6 @@ public class PostActivity extends AppCompatActivity implements AdapterView.OnIte
         });
 
 
-        test_btn.setOnClickListener(new View.OnClickListener()
-        {
-            @Override
-            public void onClick(View v)
-            {
-                Toast.makeText(PostActivity.this, "Lat: " + lat + "Lang: " + lng, Toast.LENGTH_LONG).show();
-            }
-        });
     }
 
 
