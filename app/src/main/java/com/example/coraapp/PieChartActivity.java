@@ -103,6 +103,17 @@ public class PieChartActivity extends AppCompatActivity
         });
 
 
+        pie_return_home.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                Intent GoHome = new Intent(PieChartActivity.this, MainActivity.class);
+                startActivity(GoHome);
+            }
+        });
+
+
         if(zip_filter.isEmpty())
         {
             AssaultCount = 0;
