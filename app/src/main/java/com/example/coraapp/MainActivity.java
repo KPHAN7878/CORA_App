@@ -23,6 +23,7 @@ import androidx.appcompat.widget.Toolbar;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.firebase.ui.database.SnapshotParser;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -41,6 +42,7 @@ public class MainActivity extends AppCompatActivity
     private DrawerLayout drawerLayout;
     private ActionBarDrawerToggle actionBarDrawerToggle;
     private Toolbar mToolBar;
+    private FloatingActionButton forums_floating_button, report_floating_button;
 
     //recyclerview variables
     private RecyclerView postList;
@@ -97,6 +99,28 @@ public class MainActivity extends AppCompatActivity
         setSupportActionBar(mToolBar);
         getSupportActionBar().setTitle("Home");
 
+        forums_floating_button = findViewById(R.id.forums_floating_button);
+        report_floating_button = findViewById(R.id.report_floating_button);
+
+        forums_floating_button.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                Intent GoToForums = new Intent(MainActivity.this, ForumsHome.class);
+                startActivity(GoToForums);
+            }
+        });
+
+        report_floating_button.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                Intent StartReport = new Intent(MainActivity.this, PostActivity.class);
+                startActivity(StartReport);
+            }
+        });
 
         /** nav bar stuff */
         drawerLayout = findViewById(R.id.draw_layout);
