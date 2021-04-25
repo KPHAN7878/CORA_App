@@ -24,7 +24,7 @@ public class LoginActivity extends AppCompatActivity
 {
 
     private EditText emailEditText, passwordEditText;
-    private Button loginBtn, registerBtn;
+    private Button loginBtn, registerBtn, forgotBtn;
 
     private FirebaseAuth mAuth;
 
@@ -40,6 +40,7 @@ public class LoginActivity extends AppCompatActivity
         passwordEditText = findViewById(R.id.passwordEditText);
         registerBtn = findViewById(R.id.registerBtn);
         loginBtn = findViewById(R.id.loginBtn);
+        forgotBtn = findViewById(R.id.button_forgotPassword);
 
         registerBtn.setOnClickListener(new View.OnClickListener()
         {
@@ -57,6 +58,12 @@ public class LoginActivity extends AppCompatActivity
             {
                 AllowUserLogin();
             }
+        });
+
+        forgotBtn.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v) { sendUserToForgotActivity(); }
         });
     }
 
@@ -138,5 +145,10 @@ public class LoginActivity extends AppCompatActivity
         //finish();
     }
 
-
+    //method to send user to the forgot password page
+    private void sendUserToForgotActivity()
+    {
+        Intent forgotIntent = new Intent (LoginActivity.this, ForgotPasswordActivity.class);
+        startActivity(forgotIntent);
+    }
 }

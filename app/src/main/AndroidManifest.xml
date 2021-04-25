@@ -24,9 +24,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.CORAApp">
+
         <activity android:name=".PieChartActivity"></activity>
         <activity android:name=".ChooseChart" />
         <activity android:name=".EditOccurrencePost" />
+
         <activity android:name=".EditAccount" />
         <activity android:name=".MyAccount" />
         <activity android:name=".MyPosts" />
