@@ -319,6 +319,7 @@ public class MainActivity extends AppCompatActivity
         //actions that happen when user clicks on certain navigation buttons
         switch(item.getItemId())
         {
+            /**
             case R.id.nav_home:
                 Toast.makeText(this, "Home button clicked", Toast.LENGTH_SHORT).show();
                 Intent addCategory = new Intent(MainActivity.this, AddCategory.class);
@@ -327,6 +328,7 @@ public class MainActivity extends AppCompatActivity
             case R.id.nav_create:
                 SendUserToPostActivity();
                 break;
+            */
             case R.id.nav_account:
                 Intent GoToMyAccount = new Intent(MainActivity.this, MyAccount.class);
                 startActivity(GoToMyAccount);
@@ -340,10 +342,12 @@ public class MainActivity extends AppCompatActivity
             case R.id.nav_map:
                 SendUserToMapActivity();
                 break;
+            /**
             case R.id.nav_forums:
                 Intent ForumsIntent = new Intent(MainActivity.this, ForumsHome.class);
                 startActivity(ForumsIntent);
                 break;
+            */
             /** added */
             case R.id.nav_charts:
                 SendUserToChartsActivity();
@@ -352,9 +356,11 @@ public class MainActivity extends AppCompatActivity
                 mAuth.signOut();
                 SendUserToLoginActivity();
                 break;
+            /**
             case R.id.nav_admin:
                 SendUserToAdminActivity();
                 break;
+            */
             case R.id.nine_one_one:
                 CallNineOneOne();
                 break;

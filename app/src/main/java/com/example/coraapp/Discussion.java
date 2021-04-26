@@ -166,6 +166,12 @@ public class Discussion extends AppCompatActivity
             public void onClick(View v)
             {
                 InitiazlizeComment();
+                comment_edittext_id.setFocusableInTouchMode(false);
+                comment_edittext_id.setFocusable(false);
+                comment_edittext_id.setFocusableInTouchMode(true);
+                comment_edittext_id.setFocusable(true);
+                comment_edittext_id.getText().clear();
+                imageUri = null;
             }
         });
 
@@ -348,7 +354,7 @@ public class Discussion extends AppCompatActivity
                                     */
 
                                     /** Add a copy of the thread data under subnode "comments" to use single recycleradapter when displaying in discussion later */
-                                    ThreadsRef.child(getThreadString).child("comments").child(userID + postRandomID + "-comment").updateChildren(occurrenceMap).addOnCompleteListener(new OnCompleteListener()
+                                    ThreadsRef.child(getThreadString).child("comments").child(userID + postRandomID + "comment").updateChildren(occurrenceMap).addOnCompleteListener(new OnCompleteListener()
                                     {
                                         @Override
                                         public void onComplete(@NonNull Task task)

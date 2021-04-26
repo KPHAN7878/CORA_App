@@ -223,7 +223,7 @@ public class MapPlot extends AppCompatActivity implements OnMapReadyCallback
                             }
                             */
 
-                            Toast.makeText(MapPlot.this, "lat: " + lat, Toast.LENGTH_SHORT).show();
+                            //Toast.makeText(MapPlot.this, "lat: " + lat, Toast.LENGTH_SHORT).show();
 
                         } catch (Exception e)
                         {
