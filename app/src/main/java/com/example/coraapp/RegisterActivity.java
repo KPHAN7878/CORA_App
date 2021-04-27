@@ -26,6 +26,7 @@ public class RegisterActivity extends AppCompatActivity
     private ProgressDialog loadingBar;
 
     private FirebaseAuth mAuth;
+    private FirebaseUser mUser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -131,8 +132,9 @@ public class RegisterActivity extends AppCompatActivity
                 {
                     if(task.isSuccessful())
                     {
+                        sendVerifyEmail();
                         sendUserToSetupActivity();
-                        Toast.makeText(RegisterActivity.this, "Account Created", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(RegisterActivity.this, "Account Created Please Verify Email", Toast.LENGTH_SHORT).show();
                         loadingBar.dismiss();
                     }
                     else
@@ -144,6 +146,12 @@ public class RegisterActivity extends AppCompatActivity
                 }
             });
         }
+    }
+
+    private void sendVerifyEmail()
+    {
+        mUser = mAuth.getCurrentUser();
+        mUser.sendEmailVerification();
     }
 
     //send user to set up page after registering new account
