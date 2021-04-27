@@ -51,6 +51,15 @@ public class RegisterActivity extends AppCompatActivity
                 CreateNewAccount();
             }
         });
+
+        login_btn_Register.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v)
+            {
+                Intent GoBack = new Intent(RegisterActivity.this, LoginActivity.class);
+                startActivity(GoBack);
+            }
+        });
     }
 
     //if user is already logged in then skip this step
