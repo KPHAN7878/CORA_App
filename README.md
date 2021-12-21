@@ -1,4 +1,4 @@
-# Project
+# Crime Reporting App
 
 ## Features
 - User registration and authentication
